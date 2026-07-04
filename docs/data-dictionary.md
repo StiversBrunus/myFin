@@ -152,6 +152,31 @@ BANK (1) -----< (N) INVESTMENT
 INVESTMENT_TYPE (1) -----< (N) INVESTMENT
 
 --------------------------------------------------------------
+      WALLET
+        |
+        | 1:N
+        v
+      RESERVE
+        |
+        | 1:N
+        v
+       GOAL    
+        |
+        | 1:N
+        v
+INVESTMENT_TRANSACTION
+        ^
+        |
+        | N:1
+        |
+   INVESTMENT
+      /   \
+     /     \
+  N:1       N:1
+   /         \
+BANK    INVESTMENT_TYPE
+
+--------------------------------------------------------------
 
 # CARTEIRA (WALLET):
 Um usuário pode possuir várias carteiras de gestão de patrimônio.
