@@ -17,12 +17,19 @@ Tecnologias que serão utilizadas:
 
 Banco:
     A principio MySQL, porém depois irei migrar ou para SQL Server, ou para PostgreeSQL (Suprabase).
+
+
+PostgreeSQL 17.10
+    PgAdmin 4.0
+    DBeaver
 Modelagem de Dados:
     MySQL Workbench.
 
 Back-end:
-    Java + Spring Boot.
+    Java 21
+    Spring Boot 3.x
+    
 Front-end:
-    React.
+    React
 Android:
-    React Native.
+    React Native
