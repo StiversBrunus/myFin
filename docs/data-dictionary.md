@@ -44,6 +44,46 @@
 
 ---
 
+# INVESTMENT_TRANSACTION
+
+| Field              | Description                                     |
+| ------------------ | ----------------------------------------------- |
+| id                 | Identificador único da transação                |
+| goal_id            | Identificador do Goal relacionado               |
+| investment_id      | Identificador do investimento utilizado         |
+| transaction_date   | Data em que a movimentação financeira ocorreu   |
+| transaction_type   | Tipo da movimentação financeira                 |
+| amount             | Valor da movimentação                           |
+| description        | Descrição da movimentação                       |
+| notes              | Observações adicionais                          |
+| created_at         | Data em que a movimentação foi registrada       |
+
+---
+
+# INVESTMENT
+
+| Field              | Description                                 |
+| -------------------| ------------------------------------------- |
+| id                 | Identificador único do investimento         |
+| bank_id            | Identificador único do banco                |
+| investiment_type_id| Identificador único do tipo de investimento |
+| name               | Nome do tipo de investimento                |
+| description        | Descrição do tipo de investimento           |
+| status             | Situação do Investimento                    |
+
+---
+
+# BANK
+
+| Field       | Description                                 |
+| ----------- | ------------------------------------------- |
+| id          | Identificador único do banco                |
+| name        | Nome do tipo de investimento                |
+| description | Descrição do tipo de investimento           |
+| status      | Situação do Banco                           |
+
+---
+
 # INVESTMENT_TYPE
 
 | Field       | Description                                 |
@@ -51,21 +91,6 @@
 | id          | Identificador único do tipo de investimento |
 | name        | Nome do tipo de investimento                |
 | description | Descrição do tipo de investimento           |
-
----
-
-# INVESTMENT_TRANSACTION
-
-| Field              | Description                                     |
-| ------------------ | ----------------------------------------------- |
-| id                 | Identificador único da transação                |
-| goal_id            | Identificador do Goal relacionado               |
-| investment_type_id | Identificador do tipo de investimento utilizado |
-| transaction_date   | Data em que a movimentação financeira ocorreu   |
-| transaction_type   | Tipo da movimentação financeira                 |
-| amount             | Valor da movimentação                           |
-| description        | Descrição da movimentação                       |
-| notes              | Observações adicionais                          |
 
 ---
 
@@ -106,7 +131,12 @@ RESERVA (1) -------< (N) OBJETIVOS
 
 OBJETIVO (1) ----------< (N) MOVIMENTAÇÃO
 
-TIPO DE INVESTIMENTO (1) -----< (N) MOVIMENTACAO
+INVESTIMENTO (1) -----< (N) MOVIMENTAÇÕES
+
+BANCO (1) -----< (N) INVESTIMENTOS
+
+TIPO DE INVESTIMENTO (1) -----< (N) INVESTIMENTOS
+
 --------------------------------------------------------------
 # RELATIONSHIPS
 WALLET (1) --------< (N) RESERVE
@@ -115,7 +145,12 @@ RESERVE (1) -------< (N) GOAL
 
 GOAL (1) ----------< (N) INVESTMENT_TRANSACTION
 
-INVESTMENT_TYPE (1) -----< (N) INVESTMENT_TRANSACTION
+INVESTMENT (1) -----< (N) INVESTMENT_TRANSACTION
+
+BANK (1) -----< (N) INVESTMENT
+
+INVESTMENT_TYPE (1) -----< (N) INVESTMENT
+
 --------------------------------------------------------------
 
 # CARTEIRA (WALLET):
@@ -180,6 +215,12 @@ Eu posso estar registrando uma transação hoje, que eu fiz a uma semana atrás.
 
 OBSERVAÇÃO: 
 O NOME DA TABELA "INVESTIMENT_TRANSCATION", ORIGINALMENTE ERA PARA SER "TRANSACTION", PORÉM É UMA PALAVRA RESERVADA DOS BANCOS DE DADOS, COM ISTO A TABELA FOI ALTERADA PARA ESTE NOME.
+
+# INVESTIMENTO (INVESTIMENT):
+nome e descrição do investimento.
+
+# BANCO (BANK):
+nome e descrição do banco.
 
 # TIPO DE INVESTIMENTO (INVESTIMENT_TYPE):
 nome e descrição do tipo de investimento.
