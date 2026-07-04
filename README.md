@@ -1,2 +1,2 @@
-# investment-manager
+# MyFin (investment-manager-version)
 
