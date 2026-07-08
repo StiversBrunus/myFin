@@ -10,9 +10,9 @@ Validar que o modelo físico do banco de dados foi implementado corretamente ant
 
 # 1. DATABASE
 
-| Teste                            | Objetivo                                      | Resultado Esperado                   | Status |
-|----------------------------------|-----------------------------------------------|--------------------------------------|--------|
-| TESTE 001 - Criar Banco de Dados | Executar todo o script SQL em um banco vazio. | O banco devem ser criados sem erros. | ☐      |
+| Teste | Objetivo | Resultado Esperado | Status |
+|-------|----------|--------------------|--------|
+| TESTE 001 - Criar Banco de Dados | Executar todo o script SQL em um banco vazio. | O banco, tabelas, constraints e relacionamentos devem ser criados sem erros. | ☐ |
 
 ---
 
@@ -79,11 +79,11 @@ Validar que o modelo físico do banco de dados foi implementado corretamente ant
 
 # 7. RELACIONAMENTOS
 
-| Teste     | Objetivo                                                    | Resultado Esperado                                         |Status |
-|-----------|-------------------------------------------------------------|----------------------------------------------------------- |-------|
-| TESTE 028 | Criar uma Wallet → Reserve → Goal → Investment Transaction. | Todos os relacionamentos devem ser mantidos corretamente.  |☐      |
-| TESTE 029 | Criar um Bank → Inst_Tp → Investment → Transaction.         | Todos os relacionamentos devem ser mantidos corretamente.  | ☐     |
-| TESTE 030 | Consultar os dados utilizando JOIN entre todas as tabelas relacionadas. | Os relacionamentos devem retornar os registros.| ☐     |
+| Teste | Objetivo | Resultado Esperado | Status |
+|-------|----------|--------------------|--------|
+| TESTE 028 | Criar uma Wallet → Reserve → Goal → Investment Transaction. | Todos os relacionamentos devem ser mantidos corretamente. | ☐ |
+| TESTE 029 | Criar um Bank → Investment Type → Investment → Investment Transaction. | Todos os relacionamentos devem ser mantidos corretamente. | ☐ |
+| TESTE 030 | Consultar os dados utilizando JOIN entre todas as tabelas relacionadas. | Os relacionamentos devem retornar os registros esperados. | ☐ |
 
 ---
 
