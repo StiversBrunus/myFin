@@ -5,19 +5,24 @@
 # WALLET
 
 | Field       | Description                             |
-| ----------- | --------------------------------------- |
+|-------------|-----------------------------------------|
 | id          | Identificador único da Wallet           |
 | name        | Nome da Wallet                          |
 | description | Descrição da Wallet                     |
 | created_at  | Data de criação do registro             |
 | status      | Situação da Wallet (ACTIVE ou INACTIVE) |
 
+### Constraints
+
+- PRIMARY KEY: `id`
+- UNIQUE: `name`
+
 ---
 
 # RESERVE
 
 | Field       | Description                          |
-| ----------- | ------------------------------------ |
+|-------------|--------------------------------------|
 | id          | Identificador único da Reserve       |
 | wallet_id   | Identificador da Wallet proprietária |
 | name        | Nome da Reserve                      |
@@ -25,79 +30,124 @@
 | created_at  | Data de criação do registro          |
 | status      | Situação da Reserve                  |
 
+### Constraints
+
+- PRIMARY KEY: `id`
+- FOREIGN KEY: `wallet_id` → `wallet(id)`
+- UNIQUE: (`wallet_id`, `name`)
+
 ---
 
 # GOAL
 
-| Field          | Description                                   |
-| -------------- | --------------------------------------------- |
-| id             | Identificador único do Goal                   |
-| reserve_id     | Identificador da Reserve proprietária         |
-| name           | Nome do Goal                                  |
-| description    | Descrição do Goal                             |
-| initial_amount | Valor inicial já existente para o objetivo    |
-| target_amount  | Valor financeiro que o usuário deseja atingir |
-| priority       | Prioridade do objetivo                        |
-| target_date    | Data limite para atingir o objetivo           |
-| created_at     | Data de criação do registro                   |
-| status         | Situação do Goal                              |
+| Field          | Description                                         |
+|----------------|-----------------------------------------------------|
+| id             | Identificador único do Goal                         |
+| reserve_id     | Identificador da Reserve proprietária               |
+| name           | Nome do Goal                                        |
+| description    | Descrição do Goal                                   |
+| initial_amount | Valor inicial já existente para o objetivo          |
+| target_amount  | Valor financeiro total que o usuário deseja atingir |
+| priority       | Prioridade do objetivo                              |
+| target_date    | Data limite para atingir o objetivo                 |
+| created_at     | Data de criação do registro                         |
+| status         | Situação do Goal                                    |
+
+### Constraints
+
+- PRIMARY KEY: `id`
+- FOREIGN KEY: `reserve_id` → `reserve(id)`
+- UNIQUE: (`reserve_id`, `name`)
+- CHECK:
+  - `priority IN (1, 2, 3)`
+  - `initial_amount >= 0`
+  - `target_amount > 0`
 
 ---
 
 # INVESTMENT_TRANSACTION
 
-| Field              | Description                                     |
-| ------------------ | ----------------------------------------------- |
-| id                 | Identificador único da transação                |
-| goal_id            | Identificador do Goal relacionado               |
-| investment_id      | Identificador do investimento utilizado         |
-| transaction_date   | Data em que a movimentação financeira ocorreu   |
-| transaction_type   | Tipo da movimentação financeira                 |
-| amount             | Valor da movimentação                           |
-| description        | Descrição da movimentação                       |
-| notes              | Observações adicionais                          |
-| created_at         | Data em que a movimentação foi registrada       |
+| Field            | Description                                          |
+|------------------|------------------------------------------------------|
+| id               | Identificador único da transação                     |
+| goal_id          | Identificador do Goal relacionado                    |
+| investment_id    | Identificador do Investimento utilizado              |
+| transaction_date | Data em que a movimentação financeira ocorreu        |
+| transaction_type | Tipo da movimentação financeira                      |
+| amount           | Valor da movimentação                                |
+| description      | Descrição da movimentação                            |
+| note             | Observações adicionais                               |
+| created_at       | Data em que a movimentação foi registrada no sistema |
+
+### Constraints
+
+- PRIMARY KEY: `id`
+- FOREIGN KEY: `goal_id` → `goal(id)`
+- FOREIGN KEY: `investment_id` → `investment(id)`
+- CHECK:
+  - `transaction_type IN (1, 2, 3, 4)`
+  - `amount > 0`
 
 ---
 
 # INVESTMENT
 
-| Field              | Description                                 |
-| -------------------| ------------------------------------------- |
-| id                 | Identificador único do investimento         |
-| bank_id            | Identificador único do banco                |
-| investiment_type_id| Identificador único do tipo de investimento |
-| name               | Nome do tipo de investimento                |
-| description        | Descrição do tipo de investimento           |
-| status             | Situação do Investimento                    |
+| Field              | Description                           |
+|--------------------|---------------------------------------|
+| id                 | Identificador único do Investimento   |
+| bank_id            | Identificador do Banco                |
+| investment_type_id | Identificador do Tipo de Investimento |
+| name               | Nome do Investimento                  |
+| description        | Descrição do Investimento             |
+| created_at         | Data de criação do registro           |
+| status             | Situação do Investimento              |
+
+### Constraints
+
+- PRIMARY KEY: `id`
+- FOREIGN KEY: `bank_id` → `bank(id)`
+- FOREIGN KEY: `investment_type_id` → `investment_type(id)`
 
 ---
 
 # BANK
 
-| Field       | Description                                 |
-| ----------- | ------------------------------------------- |
-| id          | Identificador único do banco                |
-| name        | Nome do tipo de investimento                |
-| description | Descrição do tipo de investimento           |
-| status      | Situação do Banco                           |
+| Field       | Description                  |
+|-------------|------------------------------|
+| id          | Identificador único do Banco |
+| name        | Nome do Banco                |
+| description | Descrição do Banco           |
+| created_at  | Data de criação do registro  |
+| status      | Situação do Banco            |
+
+### Constraints
+
+- PRIMARY KEY: `id`
+- UNIQUE: `name`
 
 ---
 
 # INVESTMENT_TYPE
 
 | Field       | Description                                 |
-| ----------- | ------------------------------------------- |
-| id          | Identificador único do tipo de investimento |
-| name        | Nome do tipo de investimento                |
-| description | Descrição do tipo de investimento           |
+|-------------|---------------------------------------------|
+| id          | Identificador único do Tipo de Investimento |
+| name        | Nome do Tipo de Investimento                |
+| description | Descrição do Tipo de Investimento           |
+| created_at  | Data de criação do registro                 |
+| status      | Situação do Tipo de Investimento            |
+
+### Constraints
+
+- PRIMARY KEY: `id`
+- UNIQUE: `name`
 
 ---
 
 # Status
 
 | Value | Description |
-| ----- | ----------- |
+|-------|-------------|
 | 0     | INACTIVE    |
 | 1     | ACTIVE      |
 
@@ -106,7 +156,7 @@
 # Priority
 
 | Value | Description |
-| ----- | ----------- |
+|-------|-------------|
 | 1     | LOW         |
 | 2     | MEDIUM      |
 | 3     | HIGH        |
@@ -116,42 +166,51 @@
 # Transaction Type
 
 | Value | Description |
-| ----- | ----------- |
+|-------|-------------|
 | 1     | DEPOSIT     |
 | 2     | WITHDRAWAL  |
 | 3     | EARNINGS    |
 | 4     | ADJUSTMENT  |
 
---------------------------------------------------------------
-# Relacionamentos:
+---
 
+# Relacionamentos
+
+```
 CARTEIRA (1) --------< (N) RESERVAS
 
-RESERVA (1) -------< (N) OBJETIVOS
+RESERVA (1) ---------< (N) OBJETIVOS
 
-OBJETIVO (1) ----------< (N) MOVIMENTAÇÃO
+OBJETIVO (1) --------< (N) MOVIMENTAÇÕES
 
-INVESTIMENTO (1) -----< (N) MOVIMENTAÇÕES
+INVESTIMENTO (1) ----< (N) MOVIMENTAÇÕES
 
-BANCO (1) -----< (N) INVESTIMENTOS
+BANCO (1) -----------< (N) INVESTIMENTOS
 
-TIPO DE INVESTIMENTO (1) -----< (N) INVESTIMENTOS
+TIPO DE INVESTIMENTO (1) ----< (N) INVESTIMENTOS
+```
 
---------------------------------------------------------------
-# RELATIONSHIPS
+---
+
+# Relationships
+
+```
 WALLET (1) --------< (N) RESERVE
 
 RESERVE (1) -------< (N) GOAL
 
 GOAL (1) ----------< (N) INVESTMENT_TRANSACTION
 
-INVESTMENT (1) -----< (N) INVESTMENT_TRANSACTION
+INVESTMENT (1) ----< (N) INVESTMENT_TRANSACTION
 
-BANK (1) -----< (N) INVESTMENT
+BANK (1) ----------< (N) INVESTMENT
 
-INVESTMENT_TYPE (1) -----< (N) INVESTMENT
+INVESTMENT_TYPE (1) ----< (N) INVESTMENT
+```
 
---------------------------------------------------------------
+---
+
+```
       WALLET
         |
         | 1:N
@@ -160,7 +219,7 @@ INVESTMENT_TYPE (1) -----< (N) INVESTMENT
         |
         | 1:N
         v
-       GOAL    
+       GOAL
         |
         | 1:N
         v
@@ -169,102 +228,204 @@ INVESTMENT_TRANSACTION
         |
         | N:1
         |
-   INVESTMENT
-      /   \
-     /     \
-  N:1       N:1
-   /         \
-BANK    INVESTMENT_TYPE
+    INVESTMENT
+      /      \
+     /        \
+  N:1          N:1
+   /            \
+BANK      INVESTMENT_TYPE
+```
 
---------------------------------------------------------------
+---
 
-# CARTEIRA (WALLET):
-Um usuário pode possuir várias carteiras de gestão de patrimônio.
-Por exemplo:
-Carteira: Gestão de Finanças Pessoais.
-Carteira 02: Gestão Patrimonial Empresarial.
-Carteira 03: Gestão Patrimonial Familiar.
-Carteira 04: Gestão Patrimonial Pessoal.
+# WALLET
 
-Dentro de cada carteira, a princípio, é dividido em 4 reservas.
+Um usuário pode possuir várias carteiras de gestão patrimonial.
 
-# RESERVA (RESERVE):
+Exemplos:
 
-Um usuário pode ter várias reservas financeiras, porém, está ligada à uma carteira.
-Uma reserva financeira possui, a carteira pela qual ela pertence, um nome, descrição e o estado dela, se está ativo ou não.
+- Gestão de Finanças Pessoais
+- Gestão Patrimonial Empresarial
+- Gestão Patrimonial Familiar
+- Gestão Patrimonial Pessoal
+
+Cada Wallet é composta, inicialmente, por quatro Reservas.
+
+---
+
+# RESERVE
+
+Uma Reserva pertence obrigatoriamente a uma Wallet.
+
+Exemplos:
+
+- Reserva de Emergência
+- Reserva de Patrimônio
+- Reserva de Oportunidades
+- Reserva de Aposentadoria
+
+Cada Reserva possui nome, descrição e status.
+
+---
+
+# GOAL
+
+Um Goal representa um objetivo financeiro pertencente a uma Reserva.
+
+Exemplos:
+
+**Objetivo:** Construir Reserva de Emergência
+
+**Reserva:** Reserva de Emergência
+
+**Objetivo:** Manutenção do Carro
+
+**Reserva:** Reserva de Emergência
+
+**Objetivo:** Comprar um Apartamento
+
+**Reserva:** Reserva de Patrimônio
+
+**Objetivo:** Comprar um Pet Shop
+
+**Reserva:** Reserva de Oportunidades
+
+### initial_amount
+
+Representa o valor que o usuário já possui no momento da criação do objetivo.
 
 Exemplo:
-Reserva de Emergência:
-Reserva de Patrimônio:
-Reserva de Oportunidades:
-Reserva de Aposentadoria:
 
-# OBJETIVO (GOAL):
+Objetivo: Comprar uma casa de R$ 500.000,00
 
-Um usuário pode ter vários objetivos/metas financeiras, porém estes objetivos estão relacionado à uma reserva financeira.
-Porque todo objetivo financeiro que uma pessoa tem, está contido dentro de uma reserva.
+Valor já disponível: R$ 30.000,00
 
-Por exemplo:
-Objetivo financeiro: "Construir minha reserva financeira". 
-Qual reserva? "Reserva de Emergência".
+```
+initial_amount = 30000.00
+target_amount = 500000.00
+```
 
-Objetivo financeiro: "Manutenção do carro"
-Qual reserva? "Reserva de Emergência".
+O progresso do objetivo será calculado considerando o valor inicial somado às movimentações registradas.
 
-Objetivo financeiro: "Comprar um apartamento"
-Qual reserva? "Reserva de Patrimônio".
+### target_amount
 
-Objetivo financeiro: "Comprar um PetShop"
-Qual reserva? "Reserva de Oportunidades".
+Valor total que o usuário deseja atingir.
 
-initial_amount (valor inicial):
-Este campo é o valor incial, imagina que voce cria um objetivo; "Comprar uma casa de 500 mil", porém, voce já tem 30.000,00 mil.
-Coloca o valor inicial.
-O valor meta altera sendo 500 mil menos os 30.000,00 que você já tem.
+### target_date
 
-target_amount (valor da meta):
-Valor meta é o valor do objetivo.
+Data limite para alcançar o objetivo.
 
-date_target (Data Limite):
-Data de vencimento do objetivo.
-É bom que você já fica ciente de em quanto tempo falta para voce alcançar este objetivo.
+---
 
-# MOVIMENTAÇÃO (INVESTIMENT_TRANSACTION):
+# INVESTMENT_TRANSACTION
 
-amount (Valor):
-note (observação):
-transaction_date (Data da Transação):
+Representa todas as movimentações financeiras registradas para um determinado objetivo.
 
-Data da transação é diferente da data de criação.
-Eu posso estar registrando uma transação hoje, que eu fiz a uma semana atrás.
+### amount
 
-OBSERVAÇÃO: 
-O NOME DA TABELA "INVESTIMENT_TRANSCATION", ORIGINALMENTE ERA PARA SER "TRANSACTION", PORÉM É UMA PALAVRA RESERVADA DOS BANCOS DE DADOS, COM ISTO A TABELA FOI ALTERADA PARA ESTE NOME.
+Valor da movimentação.
 
-# INVESTIMENTO (INVESTIMENT):
-nome e descrição do investimento.
+### note
 
-# BANCO (BANK):
-nome e descrição do banco.
+Observações adicionais.
 
-# TIPO DE INVESTIMENTO (INVESTIMENT_TYPE):
-nome e descrição do tipo de investimento.
---------------------------------------------------------------
+### transaction_date
+
+Data em que o evento financeiro realmente ocorreu.
+
+Ela pode ser diferente de `created_at`, pois o usuário pode registrar hoje uma movimentação realizada dias ou semanas atrás.
+
+### Observação
+
+O nome da tabela foi definido como `investment_transaction`, pois `transaction` é uma palavra reservada em diversos bancos de dados.
+
+---
+
+# INVESTMENT
+
+Representa um investimento financeiro.
+
+Cada Investimento pertence a um Banco e a um Tipo de Investimento.
+
+Exemplos:
+
+- Tesouro Selic
+- CDB Liquidez Diária
+- Fundo Imobiliário XPML11
+- Ação PETR4
+
+---
+
+# BANK
+
+Representa a instituição financeira onde o investimento está aplicado.
+
+Exemplos:
+
+- Nubank
+- Inter
+- Itaú
+- BTG Pactual
+- XP Investimentos
+
+---
+
+# INVESTMENT_TYPE
+
+Representa a categoria do investimento.
+
+Exemplos:
+
+- CDB
+- Tesouro Direto
+- Ações
+- Fundos Imobiliários
+- ETF
+- Criptomoedas
+
+---
+
+# Observações
+
+As entidades abaixo **não armazenam saldo** no banco de dados:
+
+- Wallet
+- Reserve
+- Goal
+- Investment
+- Bank
+- Investment Type
+
+Todos os saldos deverão ser calculados dinamicamente através das movimentações financeiras (`investment_transaction`).
+
+---
 
 # ENUMS
 
-# status
-0 = INACTIVE (INATIVO)
-1 = ACTIVE (ATIVO)
------------------------------
-# priority
-1 = LOW (BAIXO)
-2 = MEDIUM (MÉDIO)
-3 = HIGH (ALTO)
------------------------------
-# TransactionType
-1 = DEPOSIT (APORTE)
-2 = WITHDRAWAL (RESGATE)
-3 = EARNINGS (RENTABILIDADE)
-4 = ADJUSTMENT (AJUSTE)
+## status
 
+```
+0 = INACTIVE
+1 = ACTIVE
+```
+
+---
+
+## priority
+
+```
+1 = LOW
+2 = MEDIUM
+3 = HIGH
+```
+
+---
+
+## transaction_type
+
+```
+1 = DEPOSIT
+2 = WITHDRAWAL
+3 = EARNINGS
+4 = ADJUSTMENT
+```
