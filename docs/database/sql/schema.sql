@@ -33,8 +33,8 @@ CREATE TABLE wallet (
 	id BIGINT GENERATED ALWAYS AS IDENTITY,
 	name VARCHAR(100) NOT NULL,
 	description VARCHAR(255),
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	status BOOLEAN NOT NULL DEFAULT TRUE,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 	-- UNIQUE --
 	CONSTRAINT uq_wallet_name
@@ -49,8 +49,8 @@ CREATE TABLE reserve (
 	wallet_id BIGINT NOT NULL,
 	name VARCHAR(100) NOT NULL,
 	description VARCHAR(255),
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	status BOOLEAN NOT NULL DEFAULT TRUE,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 	-- UNIQUE DOBLE --
 	CONSTRAINT uq_reserve_wallet_name
@@ -68,9 +68,9 @@ CREATE TABLE goal (
 	initial_amount DECIMAL(15,2) NOT NULL,
 	target_amount DECIMAL (15,2) NOT NULL,
 	target_date DATE NULL,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	priority SMALLINT NOT NULL,
 	status BOOLEAN NOT NULL DEFAULT TRUE,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 	
 	-- CHECK --
 	CONSTRAINT ck_goal_priority
@@ -88,41 +88,6 @@ CREATE TABLE goal (
 	
 	-- PRIMARY KEY --
 	CONSTRAINT pk_goal PRIMARY KEY (id)
-);
-
-CREATE TABLE investment_transaction (
-	id BIGINT GENERATED ALWAYS AS IDENTITY,
-	goal_id BIGINT NOT NULL,
-	investment_id BIGINT NOT NULL,
-	transaction_date TIMESTAMP NOT NULL,
-	transaction_type SMALLINT NOT NULL,
-	amount DECIMAL(15,2) NOT NULL, 
-	description VARCHAR(255),
-	note TEXT,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-	-- CHECK --
-	CONSTRAINT ck_investment_transaction_transaction_type
-	CHECK (transaction_type IN (1, 2, 3, 4)),
-
-	CONSTRAINT ck_amount
-	CHECK (amount > 0),
-	
-	-- PRIMARY KEY --
-	CONSTRAINT pk_investment_transaction  PRIMARY KEY (id)
-);
-
-CREATE TABLE investment (
-	id BIGINT GENERATED ALWAYS AS IDENTITY,
-	bank_id BIGINT NOT NULL,
-	investment_type_id BIGINT NOT NULL,
-	name VARCHAR(100) NOT NULL,
-	description VARCHAR(255),
-	status BOOLEAN NOT NULL DEFAULT TRUE,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	
-	-- PRIMARY KEY --
-	CONSTRAINT pk_investment PRIMARY KEY (id)
 );
 
 CREATE TABLE bank (
@@ -155,6 +120,41 @@ CREATE TABLE investment_type (
 	CONSTRAINT pk_investment_type PRIMARY KEY (id)
 );
 
+CREATE TABLE investment (
+	id BIGINT GENERATED ALWAYS AS IDENTITY,
+	bank_id BIGINT NOT NULL,
+	investment_type_id BIGINT NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	description VARCHAR(255),
+	status BOOLEAN NOT NULL DEFAULT TRUE,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	
+	-- PRIMARY KEY --
+	CONSTRAINT pk_investment PRIMARY KEY (id)
+);
+
+CREATE TABLE investment_transaction (
+	id BIGINT GENERATED ALWAYS AS IDENTITY,
+	goal_id BIGINT NOT NULL,
+	investment_id BIGINT NOT NULL,
+	transaction_date TIMESTAMP NOT NULL,
+	transaction_type SMALLINT NOT NULL,
+	amount DECIMAL(15,2) NOT NULL, 
+	description VARCHAR(255),
+	note TEXT,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+	-- CHECK --
+	CONSTRAINT ck_investment_transaction_transaction_type
+	CHECK (transaction_type IN (1, 2, 3, 4)),
+
+	CONSTRAINT ck_amount
+	CHECK (amount > 0),
+	
+	-- PRIMARY KEY --
+	CONSTRAINT pk_investment_transaction  PRIMARY KEY (id)
+);
+
 --------------------------------------------------
 -- PRIMARY KEYS
 -- (São criadas dentro do CREATE TABLE das tabelas)
@@ -174,16 +174,6 @@ ADD CONSTRAINT fk_goal_reserve
 FOREIGN KEY (reserve_id)
 REFERENCES reserve(id);
 
-ALTER TABLE investment_transaction 
-ADD CONSTRAINT fk_investment_transaction_goal
-FOREIGN KEY (goal_id)
-REFERENCES goal(id);
-
-ALTER TABLE investment_transaction
-ADD CONSTRAINT fk_investment_transaction_investment
-FOREIGN KEY (investment_id)
-REFERENCES investment(id);
-
 ALTER TABLE investment 
 ADD CONSTRAINT fk_investment_bank
 FOREIGN KEY (bank_id)
@@ -193,6 +183,16 @@ ALTER TABLE investment
 ADD CONSTRAINT fk_investment_investment_type
 FOREIGN KEY (investment_type_id)
 REFERENCES investment_type(id);
+
+ALTER TABLE investment_transaction 
+ADD CONSTRAINT fk_investment_transaction_goal
+FOREIGN KEY (goal_id)
+REFERENCES goal(id);
+
+ALTER TABLE investment_transaction
+ADD CONSTRAINT fk_investment_transaction_investment
+FOREIGN KEY (investment_id)
+REFERENCES investment(id);
 
 --------------------------------------------------
 -- INITIAL DATA (dados fixos)
