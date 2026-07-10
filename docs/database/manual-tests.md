@@ -12,7 +12,7 @@ Validar que o modelo físico do banco de dados foi implementado corretamente ant
 
 | Teste                            | Objetivo                                      | Resultado Esperado                              | Status |
 |----------------------------------|-----------------------------------------------|-------------------------------------------------|--------|
-| TESTE 001 - Criar Banco de Dados | Executar todo o script SQL em um banco vazio. | O bd, tb, cst, rlt devem ser criados sem erros. | ☐      |
+| TESTE 001 - Criar Banco de Dados | Executar todo o script SQL em um banco vazio. | O bd, tb, cst, rlt devem ser criados sem erros. | Check  |
 
 ---
 
@@ -20,9 +20,9 @@ Validar que o modelo físico do banco de dados foi implementado corretamente ant
 
 | Teste                              | Objetivo                                    | Resultado Esperado           | Status |
 |------------------------------------|---------------------------------------------|------------------------------|--------|
-| TESTE 002 - Wallet                 | Inserir uma Wallet.                         | Registro criado com sucesso. | ☐      |
-| TESTE 003 - Reserve                | Inserir uma Reserve vinculada a uma Wallet. | Registro criado com sucesso. | ☐      |
-| TESTE 004 - Goal                   | Inserir um Goal vinculado a uma Reserve.    | Registro criado com sucesso. | ☐      |
+| TESTE 002 - Wallet                 | Inserir uma Wallet.                         | Registro criado com sucesso. | Check  |
+| TESTE 003 - Reserve                | Inserir uma Reserve vinculada a uma Wallet. | Registro criado com sucesso. | Check  |
+| TESTE 004 - Goal                   | Inserir um Goal vinculado a uma Reserve.    | Registro criado com sucesso. | Check  |
 | TESTE 005 - Bank                   | Inserir um Bank.                            | Registro criado com sucesso. | ☐      |
 | TESTE 006 - Investment Type        | Inserir um Investment Type.                 | Registro criado com sucesso. | ☐      |
 | TESTE 007 - Investment             | Inserir um Investment.                      | Registro criado com sucesso. | ☐      |
