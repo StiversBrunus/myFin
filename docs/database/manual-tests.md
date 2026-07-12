@@ -23,10 +23,10 @@ Validar que o modelo físico do banco de dados foi implementado corretamente ant
 | TESTE 002 - Wallet                 | Inserir uma Wallet.                         | Registro criado com sucesso. | Check  |
 | TESTE 003 - Reserve                | Inserir uma Reserve vinculada a uma Wallet. | Registro criado com sucesso. | Check  |
 | TESTE 004 - Goal                   | Inserir um Goal vinculado a uma Reserve.    | Registro criado com sucesso. | Check  |
-| TESTE 005 - Bank                   | Inserir um Bank.                            | Registro criado com sucesso. | ☐      |
-| TESTE 006 - Investment Type        | Inserir um Investment Type.                 | Registro criado com sucesso. | ☐      |
-| TESTE 007 - Investment             | Inserir um Investment.                      | Registro criado com sucesso. | ☐      |
-| TESTE 008 - Investment Transaction | Inserir uma Investment Transaction.         | Registro criado com sucesso. | ☐      |
+| TESTE 005 - Bank                   | Inserir um Bank.                            | Registro criado com sucesso. | Check  |
+| TESTE 006 - Investment Type        | Inserir um Investment Type.                 | Registro criado com sucesso. | Check  |
+| TESTE 007 - Investment             | Inserir um Investment.                      | Registro criado com sucesso. | Check  |
+| TESTE 008 - Investment Transaction | Inserir uma Investment Transaction.         | Registro criado com sucesso. | Check  |
 
 ---
 
@@ -34,7 +34,7 @@ Validar que o modelo físico do banco de dados foi implementado corretamente ant
 
 | Teste                | Objetivo                                                  | Resultado Esperado                           | Status |
 |----------------------|-----------------------------------------------------------|----------------------------------------------|--------|
-| TESTE 009 - Identity | Verificar a geração automática do ID em todas as tabelas. | IDs gerados automaticamente pelo PostgreSQL. | ☐      |
+| TESTE 009 - Identity | Verificar a geração automática do ID em todas as tabelas. | IDs gerados automaticamente pelo PostgreSQL. | Check  |
 
 ---
 
@@ -42,12 +42,12 @@ Validar que o modelo físico do banco de dados foi implementado corretamente ant
 
 | Teste     | Objetivo                                                   | Resultado Esperado   | Status |
 |-----------|------------------------------------------------------------|----------------------|--------|
-| TESTE 010 | Inserir Reserve com Wallet inexistente.                    | Erro de Foreign Key. | ☐      |
-| TESTE 011 | Inserir Goal com Reserve inexistente.                      | Erro de Foreign Key. | ☐      |
-| TESTE 012 | Inserir Investment com Bank inexistente.                   | Erro de Foreign Key. | ☐      |
-| TESTE 013 | Inserir Investment com Investment Type inexistente.        | Erro de Foreign Key. | ☐      |
-| TESTE 014 | Inserir Investment Transaction com Goal inexistente.       | Erro de Foreign Key. | ☐      |
-| TESTE 015 | Inserir Investment Transaction com Investment inexistente. | Erro de Foreign Key. | ☐      |
+| TESTE 010 | Inserir Reserve com Wallet inexistente.                    | Erro de Foreign Key. | Check  |
+| TESTE 011 | Inserir Goal com Reserve inexistente.                      | Erro de Foreign Key. | Check  |
+| TESTE 012 | Inserir Investment com Bank inexistente.                   | Erro de Foreign Key. | Check  |
+| TESTE 013 | Inserir Investment com Investment Type inexistente.        | Erro de Foreign Key. | Check  |
+| TESTE 014 | Inserir Investment Transaction com Goal inexistente.       | Erro de Foreign Key. | Check  |
+| TESTE 015 | Inserir Investment Transaction com Investment inexistente. | Erro de Foreign Key. | Check  |
 
 ---
 
@@ -55,11 +55,12 @@ Validar que o modelo físico do banco de dados foi implementado corretamente ant
 
 | Teste     | Objetivo                                                  | Resultado Esperado | Status |
 |-----------|-----------------------------------------------------------|--------------------|--------|
-| TESTE 016 | Inserir Goal com priority = 5.                            | Erro de CHECK.     | ☐      |
-| TESTE 017 | Inserir Investment Transaction com transaction_type = 10. | Erro de CHECK.     | ☐      |
-| TESTE 018 | Inserir Goal com target_amount = 0.                       | Erro de CHECK.     | ☐      |
-| TESTE 019 | Inserir Goal com initial_amount = -100.                   | Erro de CHECK.     | ☐      |
-| TESTE 020 | Inserir Investment Transaction com amount = 0.            | Erro de CHECK.     | ☐      |
+| TESTE 016 | Inserir Goal com priority = 5.                            | Erro de CHECK.     | Check  |
+| TESTE 017 | Inserir Investment Transaction com transaction_type = 10. | Erro de CHECK.     | Check  |
+| TESTE 018 | Inserir Goal com target_amount = 0.                       | Erro de CHECK.     | Check  |
+| TESTE 019 | Inserir Goal com initial_amount = -100.                   | Erro de CHECK.     | Check  |
+| TESTE 020 | Inserir Investment Transaction com amount = 0.            | Erro de CHECK.     | Check  |
+| TESTE 02X | Inserir Investment Transaction com amount = -100.         | Erro de CHECK.     | Check  |
 
 ---
 
@@ -67,13 +68,13 @@ Validar que o modelo físico do banco de dados foi implementado corretamente ant
 
 | Teste     | Objetivo                                                    | Resultado Esperado  | Status |
 |-----------|-------------------------------------------------------------|---------------------|--------|
-| TESTE 021 | Criar duas Wallets com o mesmo nome.                        | Erro de UNIQUE.     | ☐      |
-| TESTE 022 | Criar duas Reservas com o mesmo nome na mesma Wallet.       | Erro de UNIQUE.     | ☐      |
-| TESTE 023 | Criar duas Reservas com o mesmo nome em Wallets diferentes. | Operação permitida. | ☐      |
-| TESTE 024 | Criar dois Goals com o mesmo nome na mesma Reserve.         | Erro de UNIQUE.     | ☐      |
-| TESTE 025 | Criar dois Goals com o mesmo nome em Reservas diferentes.   | Operação permitida. | ☐      |
-| TESTE 026 | Criar dois Banks com o mesmo nome.                          | Erro de UNIQUE.     | ☐      |
-| TESTE 027 | Criar dois Investment Types com o mesmo nome.               | Erro de UNIQUE.     | ☐      |
+| TESTE 021 | Criar duas Wallets com o mesmo nome.                        | Erro de UNIQUE.     | Check  |
+| TESTE 022 | Criar duas Reservas com o mesmo nome na mesma Wallet.       | Erro de UNIQUE.     | Check  |
+| TESTE 023 | Criar duas Reservas com o mesmo nome em Wallets diferentes. | Operação permitida. | Check  |
+| TESTE 024 | Criar dois Goals com o mesmo nome na mesma Reserve.         | Erro de UNIQUE.     | Check  |
+| TESTE 025 | Criar dois Goals com o mesmo nome em Reservas diferentes.   | Operação permitida. | Check  |
+| TESTE 026 | Criar dois Banks com o mesmo nome.                          | Erro de UNIQUE.     | Check  |
+| TESTE 027 | Criar dois Investment Types com o mesmo nome.               | Erro de UNIQUE.     | Check  |
 
 ---
 
@@ -106,12 +107,12 @@ Validar que o modelo físico do banco de dados foi implementado corretamente ant
 
 | Item                         | Status |
 |------------------------------|--------|
-| Script executado sem erros   | ☐      |
-| Tabelas criadas corretamente | ☐      |
-| Primary Keys validadas       | ☐      |
-| Foreign Keys validadas       | ☐      |
-| Check Constraints validadas  | ☐      |
-| Unique Constraints validadas | ☐      |
+| Script executado sem erros   | Check  |
+| Tabelas criadas corretamente | Check  |
+| Primary Keys validadas       | Check  |
+| Foreign Keys validadas       | Check  |
+| Check Constraints validadas  | Check  |
+| Unique Constraints validadas | Check  |
 | Relacionamentos validados    | ☐      |
 | Exclusões validadas          | ☐      |
 
