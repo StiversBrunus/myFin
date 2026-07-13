@@ -853,3 +853,82 @@ VALUES (
 	100.00,
 	'Inexistente maior que 4 de 100 reais com Objetivo da Construção da Minha Reserva de Emergência.',
 	'Inexistente maior que 4 de 1000 reais no CDB do Mercado Pago para Construção da Minha Reserva de emergência');
+
+--- Validando Relacionamentos:
+--- Wallet → Reserve → Goal → Investment Transaction
+--- |Patrimônio Pessoal|Reserva de Emergência|Construção Reserva de Emergência|100.00|Depósito de 100 reais...|
+SELECT goal.id, wallet.name, reserve.name, goal.name,
+	investment_transaction.amount, investment_transaction.description 
+	FROM investment_transaction
+	INNER JOIN goal ON investment_transaction.goal_id = goal.id 
+	INNER JOIN reserve ON goal.reserve_id = reserve.id
+	INNER JOIN wallet ON reserve.wallet_id = wallet.id
+	WHERE investment_transaction.transaction_type = 1;
+
+--- Validando Relacionamentos:
+--- Bank → Investment Type → Investment → Investment Transaction
+--- |Mercado Pago|CDB				  |C... do Mercado Pago |100.00  |Depósito de 100 reais...|
+SELECT bank.name, investment_type.name, investment.description, investment_transaction.amount, investment_transaction.description
+	FROM investment_transaction
+	INNER JOIN investment ON investment_transaction.investment_id = investment.id
+	INNER JOIN bank ON investment.bank_id = bank.id
+	INNER JOIN 	investment_type ON investment_type_id = investment_type.id
+	WHERE investment_transaction.transaction_type = 1; 
+	
+--- |Patrimônio Pessoal|Reserva de Emergência|Construção Reserva de Em...|100.00|Mercad...|CDB|Certificado de Depósito...|
+
+SELECT wallet.name, reserve.name, goal.name,
+	investment_transaction.amount, bank.name,
+	investment_type.name, investment.description
+FROM investment_transaction
+INNER JOIN goal ON  investment_transaction.goal_id = goal.id
+INNER JOIN reserve ON goal.reserve_id = reserve.id
+INNER JOIN wallet ON reserve.wallet_id = wallet.id
+INNER JOIN investment ON investment_transaction.investment_id = investment.id
+INNER JOIN investment_type ON investment.investment_type_id = investment_type.id
+INNER JOIN bank ON investment.bank_id = bank.id
+WHERE investment_transaction.transaction_type = 1;
+
+SELECT wallet.name, reserve.name, goal.name,
+	investment_transaction.amount, bank.name,
+	investment_type.name, investment.description
+FROM investment_transaction
+INNER JOIN goal ON  investment_transaction.goal_id = goal.id
+INNER JOIN reserve ON goal.reserve_id = reserve.id
+INNER JOIN wallet ON reserve.wallet_id = wallet.id
+INNER JOIN investment ON investment_transaction.investment_id = investment.id
+INNER JOIN investment_type ON investment.investment_type_id = investment_type.id
+INNER JOIN bank ON investment.bank_id = bank.id;
+
+--- Validando Exclusões:
+DELETE FROM wallet;
+DELETE FROM reserve;
+DELETE FROM goal;
+DELETE FROM bank;
+DELETE FROM investment_type;
+DELETE FROM investment;
+
+DELETE FROM investment_transaction;
+DELETE FROM investment;
+DELETE FROM investment_type;
+DELETE FROM bank;
+DELETE FROM goal;
+DELETE FROM reserve;
+DELETE FROM wallet;
+
+SELECT * FROM wallet;
+SELECT * FROM reserve;
+SELECT * FROM goal;
+SELECT * FROM investment;
+SELECT * FROM investment_type;
+SELECT * FROM bank;
+SELECT * FROM investment_transaction;
+
+
+
+
+
+
+
+
+
