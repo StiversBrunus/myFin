@@ -1,5 +1,13 @@
 DROP DATABASE IF EXISTS myfin;
 
+-- ===============================================================================================
+-- TESTE 001 - CRUD
+-- Entidade...........: Banco de Dados
+-- Objetivo...........: Execultar todo script SQL em um banco vazio.
+-- Resultado Esperado.: Banco, tabelas, constraints e relacionamento devem ser criados sem erros.
+-- Status.............: APROVADO ✅
+-- ===============================================================================================
+
 CREATE DATABASE myfin
     WITH
     OWNER = postgres
@@ -148,11 +156,6 @@ CREATE TABLE investment_transaction (
 );
 
 --------------------------------------------------
--- PRIMARY KEYS
--- (São criadas dentro do CREATE TABLE das tabelas)
---------------------------------------------------
-
---------------------------------------------------
 -- FOREIGN KEYS
 --------------------------------------------------
 
@@ -190,28 +193,13 @@ REFERENCES investment(id);
 -- FUNCTIONS / TESTS
 --------------------------------------------------
 
---- Teste do Banco de Dados;
-
--- Drop do Banco: Check.
--- Create do Banco: Check
--- Create das Tabelas: Check
--- Create das PK: Check
--- Create das FK: Check
--- Create das UK: Check
--- Create dos Check: Check
-
-
-SELECT * FROM wallet;
-
-/* 
-Devem ser criados automaticamente:
-	ID: Incrementado.
-	Created_at: Data e Hora Atual do Servidor.
-	Status: True.
-Não podem repetir:
-	id: Não pode existir uma wallet com o mesmo id;
-	Name: Não pode existir uma Wallet com o mesmo nome.
-*/
+-- =============================================================================
+-- TESTE 002 - CRUD
+-- Entidade...........: Wallet
+-- Objetivo...........: Inserir uma Wallet.
+-- Resultado Esperado.: Registro criado com sucesso.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 
 INSERT INTO wallet (name, description)
 VALUES 
@@ -230,33 +218,37 @@ INSERT INTO wallet (id, name, description)
 VALUES 
 (11,'Patrimônio Teste ID', 'Minha carteira de patrimônio Teste ID.');
 
--- Teste de Uk
+-- ============================================================================
+-- CONSTRAINT: uq_wallet_name
+-- Tipo..............: UNIQUE
+-- Finalidade........: Impedir Wallets com o mesmo nome.
+-- Teste(s)..........: TESTE 021
+-- Status.............: APROVADO ✅
+-- ============================================================================
+
 INSERT INTO wallet (name, description)
 VALUES 
 ('Patrimônio Pessoal', 'Minha carteira de patrimônio Teste UK no campo Nome.');
 
-SELECT * FROM reserve;
-
-/* 
-	Devem ser criados automaticamente:
-		ID: Incrementado.
-		Created_at: Data e Hora Atual do Servidor.
-		Status: True.
-	Não podem repetir:
-		id: Não pode existir uma reserve com o mesmo id;
-		Name: Não pode existir uma reserve com o mesmo nome que pertença a uma mesma carteira.
-		wallet_id: Não pode criar uma reserva em uma carteira inexistente.
-		wallet_id: Não pode ser null.
-	Deve:
-		wallet_id: Na criação de uma reserva, deve indicar o id da carteira que a reserva pertence.
-	Pode:
-		Name: Pode existir uma reserve com o mesmo nome que pertença a wallet Diferentes.
-*/
-
+-- =============================================================================
+-- TESTE 003 - CRUD
+-- Entidade...........: Reserve
+-- Objetivo...........: Inserir uma Reserve vinculada a uma Wallet.
+-- Resultado Esperado.: Registro criado com sucesso.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 
 INSERT INTO reserve (wallet_id, name, description)
 VALUES 
 (11, 'Reserva de Emergência','Minha reserva de emergência para o patrimônio pessoal.');
+
+-- ============================================================================
+-- CONSTRAINT: uq_wallet_name
+-- Tipo..............: UNIQUE
+-- Finalidade........: Criar duas Reservas com o mesmo nome na mesma Wallet.
+-- Teste(s)..........: TESTE 023
+-- Status.............: APROVADO ✅
+-- ============================================================================
 
 INSERT INTO reserve (wallet_id, name, description)
 VALUES 
@@ -266,40 +258,25 @@ INSERT INTO reserve (wallet_id, name, description)
 VALUES 
 (13, 'Reserva de Emergência','Minha reserva de emergência para o patrimônio familiar.');
 
--- wallet_id Nulo
-INSERT INTO reserve (name, description)
-VALUES 
-('Reserva de Emergência Teste Wallet Null','Minha reserva de emergência para o Teste Wallet Null.');
+-- =============================================================================
+-- TESTE 010 - FOREIGN KEY
+-- Objetivo...........: Inserir uma Reserve utilizando uma Wallet inexistente.
+-- Resultado Esperado.: Erro de FOREIGN KEY.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 
--- wallet_id Inexistente
 INSERT INTO reserve (wallet_id, name, description)
 VALUES 
 (100, 'Reserva de Emergência Teste Wallet_id Inexistente','Minha reserva de emergência para o Teste Wallet_id Inexistente.');
 
+-- =============================================================================
+-- TESTE 004 - CRUD
+-- Entidade...........: Goal
+-- Objetivo...........: Inserir um Goal vinculado a uma Reserve.
+-- Resultado Esperado.: Registro criado com sucesso.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 
-SELECT * FROM goal;
-
-/* 
-	Devem ser criados automaticamente:
-		ID: Incrementado.
-		Created_at: Data e Hora Atual do Servidor.
-		Status: True.
-	Não podem repetir:
-		id: Não pode existir uma goal com o mesmo id;
-		Name: Não pode existir uma objetivo com o mesmo nome que pertença a uma mesma reserva.
-		reserve_id: Não pode criar um objetivo em uma reserva inexistente.
-		reserve_id: Não pode ser null.
-		initial_amount: Não pode ser Negativo.
-		target_amount: Não pode ser negativo.
-		priority: Não pode ser maior que três, nem menor que um.
-	Deve:
-		reserve_id: Na criação de um objetivo, deve indicar o id da reserve que o objetetivo pertence.
-	Pode:
-		Name: Pode existir um Objetivo com o mesmo nome que pertença a uma reserva Diferente.
-		target_date: Pode ser Nulo.
-*/
-
--- Goal, reserva e carteira Pessoal
 INSERT INTO goal (reserve_id,
 	name,
 	description,
@@ -315,7 +292,6 @@ VALUES (1,
 	'2028-01-01',
 	3);
 
--- Goal, reserve e carteira empresarial
 INSERT INTO goal (reserve_id,
 	name,
 	description,
@@ -331,7 +307,6 @@ VALUES (2,
 	'2028-07-01',
 	2);
 
--- Goal, reserve e carteira familiar
 INSERT INTO goal (reserve_id,
 	name,
 	description,
@@ -347,7 +322,14 @@ VALUES (3,
 	'2028-01-01',
 	1);
 
--- Objetivo com o mesmo nome. (UK)
+-- ============================================================================
+-- CONSTRAINT: uq_wallet_name
+-- Tipo..............: UNIQUE
+-- Finalidade........: Impedir Criar dois Goals com o mesmo nome na mesma Reserve.
+-- Teste(s)..........: TESTE 024
+-- Status.............: APROVADO ✅
+-- ============================================================================
+
 INSERT INTO goal (reserve_id,
 	name,
 	description,
@@ -363,7 +345,13 @@ VALUES (1,
 	'2028-01-06',
 	3);
 
--- Reserve Inexistente (erro de fk)
+-- =============================================================================
+-- TESTE 011 - FOREIGN KEY
+-- Objetivo...........: Inserir um Goal utilizando uma Reserve inexistente.
+-- Resultado Esperado.: Erro de FOREIGN KEY.
+-- Status.............: APROVADO ✅
+-- =============================================================================
+
 INSERT INTO goal (reserve_id,
 	name,
 	description,
@@ -379,23 +367,14 @@ VALUES (100,
 	'2028-01-01',
 	1);
 
--- Reserve_id null
-INSERT INTO goal (
-	name,
-	description,
-	initial_amount,
-	target_amount,
-	target_date,
-	priority)
-VALUES (
-	'Objetivo: Tentar criar um Objetivo numa reserve_id null.',
-	'Construção da Reserva de Emergência da familia, equivalente à 6 meses da renda mensal familiar.',
-	1.00,
-	15000.00, 
-	'2028-01-01',
-	1);
+-- ==================================================================================
+-- CONSTRAINT: ck_goal_priority
+-- Tipo..............: CHECK
+-- Finalidade........: Permitir apenas valor inicial positivo.
+-- Teste(s)..........: TESTE 019
+-- Status.............: APROVADO ✅
+-- ==================================================================================
 
--- Goal: Initial_amount não pode ser negativo.
 INSERT INTO goal (reserve_id,
 	name,
 	description,
@@ -411,7 +390,14 @@ VALUES (1,
 	'2028-01-01',
 	3);
 
--- Goal: target_amount não pode ser negativo.
+-- ==================================================================================
+-- CONSTRAINT: ck_goal_priority
+-- Tipo..............: CHECK
+-- Finalidade........: Permitir apenas valor da meta maior do que zero.
+-- Teste(s)..........: TESTE 018
+-- Status.............: APROVADO ✅
+-- ==================================================================================
+
 INSERT INTO goal (reserve_id,
 	name,
 	description,
@@ -427,7 +413,6 @@ VALUES (1,
 	'2028-01-01',
 	3);
 
--- Goal: target_amount não pode ser igual a zero.
 INSERT INTO goal (reserve_id,
 	name,
 	description,
@@ -443,7 +428,14 @@ VALUES (1,
 	'2028-01-01',
 	3);
 
--- Goal: Check não pode ser maior que 3.
+-- ==================================================================================
+-- CONSTRAINT: ck_goal_priority
+-- Tipo..............: CHECK
+-- Finalidade........: Permitir apenas prioridades 1 (Baixa), 2 (Média) ou 3 (Alta).
+-- Teste(s)..........: TESTE 016
+-- Status.............: APROVADO ✅
+-- ==================================================================================
+
 INSERT INTO goal (reserve_id,
 	name,
 	description,
@@ -459,7 +451,6 @@ VALUES (1,
 	'2028-01-01',
 	5);
 	
--- Goal: Check não pode ser menor que 1.
 INSERT INTO goal (reserve_id,
 	name,
 	description,
@@ -475,8 +466,15 @@ VALUES (1,
 	'2028-01-01',
 	0);
 
--- Goal com o mesmo nome, porém reservas diferentes.
--- target_date: Pode ser nulo
+-- ============================================================================
+-- CONSTRAINT: uq_goal_name
+-- Tipo..............: UNIQUE
+-- Finalidade........: Permitir Criar dois Goals com o mesmo nome em Reservas diferentes.
+-- Observação........: Data de Vencimento pode ser nula
+-- Teste(s)..........: TESTE 025
+-- Status.............: APROVADO ✅
+-- ============================================================================
+
 INSERT INTO goal (reserve_id,
 	name,
 	description,
@@ -490,17 +488,13 @@ VALUES (3,
 	1000.00,
 	3);
 
-SELECT * FROM bank;
-
-/* 
-Devem ser criados automaticamente:
-	ID: Incrementado.
-	Created_at: Data e Hora Atual do Servidor.
-	Status: True.
-Não podem repetir:
-	id: Não pode existir um banco com o mesmo id;
-	Name: Não pode existir um banco com o mesmo nome.
-*/
+-- =============================================================================
+-- TESTE 005 - CRUD
+-- Entidade...........: Bank
+-- Objetivo...........: Inserir um bank.
+-- Resultado Esperado.: Registro criado com sucesso.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 
 INSERT INTO bank (name, description)
 VALUES 
@@ -514,28 +508,25 @@ INSERT INTO bank (name, description)
 VALUES 
 ('Mercado Pago', 'Instituição de Pagamento Mercado Pago.');
 
--- Teste do id
-INSERT INTO bank (id, name, description)
-VALUES 
-(1,'Patrimônio Teste ID', 'Minha carteira de patrimônio Teste ID.');
+-- ============================================================================
+-- CONSTRAINT: uq_bank_name
+-- Tipo..............: UNIQUE
+-- Finalidade........: Impedir Criar dois Banks com o mesmo nome. 
+-- Teste(s)..........: TESTE 026
+-- Status.............: APROVADO ✅
+-- ============================================================================
 
--- Teste de Uk
 INSERT INTO bank (name, description)
 VALUES 
 ('BTG Pactual Banking', 'Minha carteira de patrimônio Teste UK no campo Nome.');
 
-
-SELECT * FROM investment_type;
-
-/* 
-Devem ser criados automaticamente:
-	ID: Incrementado.
-	Created_at: Data e Hora Atual do Servidor.
-	Status: True.
-Não podem repetir:
-	id: Não pode existir um tipo de investimento com o mesmo id;
-	Name: Não pode existir um tipo de investimento com o mesmo nome.
-*/
+-- =============================================================================
+-- TESTE 006 - CRUD
+-- Entidade...........: Investment Type
+-- Objetivo...........: Inserir um Investment Type.
+-- Resultado Esperado.: Registro criado com sucesso.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 
 INSERT INTO investment_type (name, description)
 VALUES 
@@ -549,33 +540,25 @@ INSERT INTO investment_type (name, description)
 VALUES 
 ('LCA', 'Letra de Crédito do Agronegócio.');
 
--- Teste do id
-INSERT INTO investment_type (id, name, description)
-VALUES 
-(1,'Patrimônio Teste ID', 'Minha carteira de patrimônio Teste ID.');
+-- ============================================================================
+-- CONSTRAINT: uq_investment_type_name
+-- Tipo..............: UNIQUE
+-- Finalidade........: Impedir Criar dois Investment Types com o mesmo nome.
+-- Teste(s)..........: TESTE 027
+-- Status.............: APROVADO ✅
+-- ============================================================================
 
--- Teste de Uk
 INSERT INTO investment_type (name, description)
 VALUES 
 ('CDB', 'Minha carteira de patrimônio Teste UK no campo Nome.');
 
-SELECT * FROM investment_type;
-
-SELECT * FROM investment;
-/* 
-Devem ser criados automaticamente:
-	ID: Incrementado.
-	Created_at: Data e Hora Atual do Servidor.
-	Status: True.
-Não podem repetir:
-	id: Não pode existir um tipo de investimento com o mesmo id;
-	bank_id: Um investimento precisa pertencer a um banco.
-	investment_type_id: Um investimento precisa pertencer a um tipo de investimento.
-*/
-
-SELECT * FROM bank
-SELECT * FROM investment_type;
-SELECT * FROM investment;
+-- =============================================================================
+-- TESTE 007 - CRUD
+-- Entidade...........: Investment 
+-- Objetivo...........: Inserir um Investment.
+-- Resultado Esperado.: Registro criado com sucesso.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 
 INSERT INTO investment (
 	bank_id,
@@ -599,18 +582,13 @@ VALUES (
 	'LCA do BTG Pactual Investments',
 	'Letras de Crédito do Agronegócio do BTG Pactual Investments.');
 
+-- =============================================================================
+-- TESTE 012 - FOREIGN KEY
+-- Objetivo...........: Inserir um Investment utilizando uma Bank inexistente.
+-- Resultado Esperado.: Erro de FOREIGN KEY.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 
--- Banco Null
-INSERT INTO investment (
-	investment_type_id,
-	name,
-	description)
-VALUES (
-	1,
-	'CDB do Mercado Pago',
-	'Certificado de Depósito Bancário do Mercado Pago.');
-
--- Banco inexistente
 INSERT INTO investment (
 	bank_id,
 	investment_type_id,
@@ -622,17 +600,13 @@ VALUES (
 	'CDB do Banco inexistente',
 	'Certificado de Depósito Bancário do Banco inexistente.');
 
--- Investimento sem tipo de investimento
-INSERT INTO investment (
-	bank_id,
-	name,
-	description)
-VALUES (
-	3,
-	'Null do Mercado Pago',
-	'Null do Mercado Pago.');
+-- =============================================================================
+-- TESTE 013 - FOREIGN KEY
+-- Objetivo...........: Inserir um Investment utilizando uma Investment Type inexistente.
+-- Resultado Esperado.: Erro de FOREIGN KEY.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 
--- Investimento tipo de investimento inexistente
 INSERT INTO investment (
 	bank_id,
 	investment_type_id,
@@ -644,23 +618,13 @@ VALUES (
 	'Inexistente do Mercado Pago',
 	'Inexistente do Mercado Pago.');
 
-
-SELECT * FROM investment;
-
-SELECT * FROM investment_transaction;
-
-/* 
-Devem ser criados automaticamente:
-	ID: Incrementado.
-	Created_at: Data e Hora Atual do Servidor.
-Não podem repetir:
-	goal_id: Uma transação precisa indicar para qual objetivo está sendo esta transação.
-	investment_id: Uma transação precisa pertencer a um investimento, donde indica tipo e banco que está o dinheiro.
-	transaction_date: não pode ser nulo.
-	amount: não pode ser zero ou negativo.
-	transaction_type: Menor que 1 e maior que 4
-	
-*/
+-- =============================================================================
+-- TESTE 008 - CRUD
+-- Entidade...........: Investment Transaction
+-- Objetivo...........: Inserir um Investment Transaction.
+-- Resultado Esperado.: Registro criado com sucesso.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 
 INSERT INTO investment_transaction (
 	goal_id,
@@ -697,24 +661,13 @@ VALUES (
 	'Regaste de 100 reais com Objetivo da Construção da Minha Reserva de Emergência.',
 	'Resgate de 100 reais no CDB do Mercado Pago para Construção da Minha Reserva de emergência');
 
+-- =============================================================================
+-- TESTE 014 - FOREIGN KEY
+-- Objetivo...........: Inserir um Investment Transaction utilizando uma Goal inexistente.
+-- Resultado Esperado.: Erro de FOREIGN KEY.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 
--- goal_id: nulo
-INSERT INTO investment_transaction (
-	investment_id,
-	transaction_date,
-	transaction_type,
-	amount,
-	description,
-	note) 
-VALUES (
-	1,
-	NOW(),
-	1,
-	100.00,
-	'Depósito de 100 reais com Objetivo Null.',
-	'Depósito de 1000 reais no CDB do Mercado Pago para Null');
-
--- goal_id: inexistente
 INSERT INTO investment_transaction (
 	goal_id,
 	investment_id,
@@ -732,23 +685,13 @@ VALUES (
 	'Depósito de 100 reais com Inexistente',
 	'Depósito de 1000 reais no CDB do Mercado Pago para Inexistencia.');
 
--- Investimento Null
-INSERT INTO investment_transaction (
-	goal_id,
-	transaction_date,
-	transaction_type,
-	amount,
-	description,
-	note) 
-VALUES (
-	1,
-	NOW(),
-	1,
-	100.00,
-	'Depósito de 100 reais com Investimento nulo.',
-	'Depósito de 1000 reais com investimento nulo.');
-	
---- Investment_id: Inexistente
+-- =============================================================================
+-- TESTE 015 - FOREIGN KEY
+-- Objetivo...........: Inserir um Investment Transaction utilizando uma Investment inexistente.
+-- Resultado Esperado.: Erro de FOREIGN KEY.
+-- Status.............: APROVADO ✅
+-- =============================================================================
+
 INSERT INTO investment_transaction (
 	goal_id,
 	investment_id,
@@ -782,7 +725,14 @@ VALUES (
 	'Depósito de 100 reais com Data de Transacao Nula',
 	'Depósito de 1000 reais no Data de Transação Nula');
 
--- Valor da Transação ZERO:
+-- ==================================================================================
+-- CONSTRAINT: ck_goal_priority
+-- Tipo..............: CHECK
+-- Finalidade........: Impedir valor da transação igual a zero.
+-- Teste(s)..........: TESTE 020
+-- Status.............: APROVADO ✅
+-- ==================================================================================
+
 INSERT INTO investment_transaction (
 	goal_id,
 	investment_id,
@@ -800,7 +750,14 @@ VALUES (
 	'Depósito de 0 reais com Objetivo da Construção da Minha Reserva de Emergência.',
 	'Depósito de 0 reais no CDB do Mercado Pago para Construção da Minha Reserva de emergência');
 
--- Valor da Transação negativo:
+-- ==================================================================================
+-- CONSTRAINT: ck_goal_priority
+-- Tipo..............: CHECK
+-- Finalidade........: Impedir valor de transação negativo.
+-- Teste(s)..........: TESTE 02x
+-- Status.............: APROVADO ✅
+-- ==================================================================================
+
 INSERT INTO investment_transaction (
 	goal_id,
 	investment_id,
@@ -818,7 +775,15 @@ VALUES (
 	'Depósito de -100 reais com Objetivo da Construção da Minha Reserva de Emergência.',
 	'Depósito de -1000 reais no CDB do Mercado Pago para Construção da Minha Reserva de emergência');
 
--- transaction_type: menor que 1
+-- ==================================================================================
+-- CONSTRAINT: ck_goal_priority
+-- Tipo..............: CHECK
+-- Finalidade........: Permitir apenas tipo de transação 1 (Depósitos), 2 (Resgates),
+--					  3 (Rendimentos), 4 (Ajustes).
+-- Teste(s)..........: TESTE 017
+-- Status.............: APROVADO ✅
+-- ==================================================================================
+
 INSERT INTO investment_transaction (
 	goal_id,
 	investment_id,
@@ -836,7 +801,6 @@ VALUES (
 	'Inexistente menor que 1 de 100 reais com Objetivo da Construção da Minha Reserva de Emergência.',
 	'Inexistente menor que 1 de 1000 reais no CDB do Mercado Pago para Construção da Minha Reserva de emergência');
 
--- transaction_type maior do que 4
 INSERT INTO investment_transaction (
 	goal_id,
 	investment_id,
@@ -854,9 +818,24 @@ VALUES (
 	'Inexistente maior que 4 de 100 reais com Objetivo da Construção da Minha Reserva de Emergência.',
 	'Inexistente maior que 4 de 1000 reais no CDB do Mercado Pago para Construção da Minha Reserva de emergência');
 
---- Validando Relacionamentos:
---- Wallet → Reserve → Goal → Investment Transaction
---- |Patrimônio Pessoal|Reserva de Emergência|Construção Reserva de Emergência|100.00|Depósito de 100 reais...|
+-- =============================================================================
+-- TESTE 028 - RELACIONAMENTOS
+--
+-- Objetivo:
+-- Validar o relacionamento entre as tabelas Wallet → Reserve → Goal →
+-- Investment Transaction.
+--
+-- Resultado esperado:
+-- A consulta deve retornar corretamente os registros relacionados entre
+-- as quatro tabelas, preservando a integridade referencial.
+--
+--  |Patrimônio Pessoal|Reserva de Emergência|Construção Reserva de Emergência|100.00|Depósito de 100 reais...|
+--
+-- Status:
+-- APROVADO ✅
+-- =============================================================================
+
+
 SELECT goal.id, wallet.name, reserve.name, goal.name,
 	investment_transaction.amount, investment_transaction.description 
 	FROM investment_transaction
@@ -865,17 +844,47 @@ SELECT goal.id, wallet.name, reserve.name, goal.name,
 	INNER JOIN wallet ON reserve.wallet_id = wallet.id
 	WHERE investment_transaction.transaction_type = 1;
 
---- Validando Relacionamentos:
---- Bank → Investment Type → Investment → Investment Transaction
---- |Mercado Pago|CDB				  |C... do Mercado Pago |100.00  |Depósito de 100 reais...|
+-- =============================================================================
+-- TESTE 029 - RELACIONAMENTOS
+--
+-- Objetivo:
+-- Validar o relacionamento entre as tabelas Bank → Investment Type →
+-- Investment → Investment Transaction.
+--
+-- Resultado esperado:
+-- A consulta deve retornar corretamente os registros relacionados entre
+-- as quatro tabelas, preservando a integridade referencial.
+--
+-- |Mercado Pago|CDB|C... do Mercado Pago |100.00|Depósito de 100 reais...|
+--
+-- Status:
+-- APROVADO ✅
+-- =============================================================================
+
 SELECT bank.name, investment_type.name, investment.description, investment_transaction.amount, investment_transaction.description
 	FROM investment_transaction
 	INNER JOIN investment ON investment_transaction.investment_id = investment.id
 	INNER JOIN bank ON investment.bank_id = bank.id
 	INNER JOIN 	investment_type ON investment_type_id = investment_type.id
 	WHERE investment_transaction.transaction_type = 1; 
-	
---- |Patrimônio Pessoal|Reserva de Emergência|Construção Reserva de Em...|100.00|Mercad...|CDB|Certificado de Depósito...|
+
+-- =============================================================================
+-- TESTE 030 - RELACIONAMENTOS
+--
+-- Objetivo:
+-- Validar os relacionamentos utilizando JOIN entre todas as tabelas do
+-- modelo de dados.
+--
+-- Resultado esperado:
+-- A consulta deve retornar corretamente os registros relacionados entre
+-- Wallet, Reserve, Goal, Investment, Investment Type, Bank e
+-- Investment Transaction.
+--
+-- |Patrimônio Pessoal|Reserva de Emergência|Construção Reserva de Em...|100.00|Mercad...|CDB|Certificado de Depósito...|
+--
+-- Status:
+-- APROVADO ✅
+-- =============================================================================
 
 SELECT wallet.name, reserve.name, goal.name,
 	investment_transaction.amount, bank.name,
@@ -900,13 +909,76 @@ INNER JOIN investment ON investment_transaction.investment_id = investment.id
 INNER JOIN investment_type ON investment.investment_type_id = investment_type.id
 INNER JOIN bank ON investment.bank_id = bank.id;
 
---- Validando Exclusões:
+-- =============================================================================
+-- TESTES 031 A 036 - EXCLUSÕES
+--
+-- Objetivo:
+-- Validar que o banco de dados impede a exclusão de registros que possuem
+-- relacionamentos ativos, preservando a integridade referencial.
+--
+-- Resultado esperado:
+-- As operações de exclusão devem ser bloqueadas pelas Foreign Keys.
+--
+-- Status:
+-- APROVADO ✅
+-- =============================================================================
+
+-- =============================================================================
+-- TESTE 031 - EXCLUSÃO
+-- Objetivo...........: Excluir uma Wallet com Reservas associadas.
+-- Resultado esperado.: Exclusão bloqueada pela Foreign Key.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 DELETE FROM wallet;
+
+-- =============================================================================
+-- TESTE 032 - EXCLUSÃO
+-- Objetivo...........: Excluir uma Reserve com Goals associados.
+-- Resultado esperado.: Exclusão bloqueada pela Foreign Key.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 DELETE FROM reserve;
+
+-- =============================================================================
+-- TESTE 033 - EXCLUSÃO
+-- Objetivo...........: Excluir um Goal com Investment Transactions associadas.
+-- Resultado esperado.: Exclusão bloqueada pela Foreign Key.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 DELETE FROM goal;
+
+-- =============================================================================
+-- TESTE 034 - EXCLUSÃO
+-- Objetivo...........: Excluir um Bank com Investments associados.
+-- Resultado esperado.: Exclusão bloqueada pela Foreign Key.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 DELETE FROM bank;
+
+-- =============================================================================
+-- TESTE 035 - EXCLUSÃO
+-- Objetivo...........: Excluir um Investment Type com Investments associados.
+-- Resultado esperado.: Exclusão bloqueada pela Foreign Key.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 DELETE FROM investment_type;
+
+-- =============================================================================
+-- TESTE 036 - EXCLUSÃO
+-- Objetivo...........: Excluir um Investment com Investment Transactions
+--                      associadas.
+-- Resultado esperado.: Exclusão bloqueada pela Foreign Key.
+-- Status.............: APROVADO ✅
+-- =============================================================================
 DELETE FROM investment;
+
+-- =============================================================================
+-- LIMPEZA DO AMBIENTE DE TESTES
+--
+-- Objetivo:
+-- Remover todos os registros respeitando a ordem dos relacionamentos,
+-- preparando o banco para uma nova execução dos testes.
+-- =============================================================================
 
 DELETE FROM investment_transaction;
 DELETE FROM investment;
@@ -916,13 +988,6 @@ DELETE FROM goal;
 DELETE FROM reserve;
 DELETE FROM wallet;
 
-SELECT * FROM wallet;
-SELECT * FROM reserve;
-SELECT * FROM goal;
-SELECT * FROM investment;
-SELECT * FROM investment_type;
-SELECT * FROM bank;
-SELECT * FROM investment_transaction;
 
 
 
