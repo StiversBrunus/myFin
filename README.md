@@ -117,4 +117,4 @@ New features, improvements, and documentation will be added continuously as the 
 
 ---
 
-Made with ❤️ as a personal learning and portfolio project.
+Made as a personal learning and portfolio project.
