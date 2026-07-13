@@ -1,3 +1,11 @@
+--------------------------------------------------
+-- Project: Investment Manager - MyFin
+-- GitHub: investment-manager -> myFin
+-- Author: @StiversBrunus (Bruno Oliveira)
+-- DBMS: PostgreSQL 17
+-- Database: myfin 
+--------------------------------------------------
+
 DROP DATABASE IF EXISTS myfin;
 
 -- ===============================================================================================
@@ -34,7 +42,7 @@ CREATE TABLE wallet (
 	name VARCHAR(100) NOT NULL,
 	description VARCHAR(255),
 	status BOOLEAN NOT NULL DEFAULT TRUE,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
 	-- UNIQUE --
 	CONSTRAINT uq_wallet_name
@@ -50,7 +58,7 @@ CREATE TABLE reserve (
 	name VARCHAR(100) NOT NULL,
 	description VARCHAR(255),
 	status BOOLEAN NOT NULL DEFAULT TRUE,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
 	-- UNIQUE DOBLE --
 	CONSTRAINT uq_reserve_wallet_name
@@ -70,7 +78,7 @@ CREATE TABLE goal (
 	target_date DATE NULL,
 	priority SMALLINT NOT NULL,
 	status BOOLEAN NOT NULL DEFAULT TRUE,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	
 	-- CHECK --
 	CONSTRAINT ck_goal_priority
