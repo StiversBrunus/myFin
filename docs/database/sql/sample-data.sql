@@ -296,8 +296,8 @@ INSERT INTO investment (
 	name,
 	description)
 VALUES (
-	1,
 	7,
+	3,
 	'Meu Porquinho',
 	'Meu Porquinho - Inter');
 
@@ -307,8 +307,8 @@ INSERT INTO investment (
 	name,
 	description)
 VALUES (
-	1,
 	11,
+	3,
 	'Cofrinho',
 	'Cofrinho - Mercado Pago');
 

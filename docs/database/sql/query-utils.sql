@@ -20,8 +20,13 @@ SELECT wt.name, rv.name, gl.name, gl.target_amount FROM goal AS gl
 	ORDER BY rv.id ASC;
 
 -- LISTANDO TODOS OS INVESTIMENTOS + TIPOS DE INVESTIMENTOS + BANCOS
+SELECT bk.name, vst.description, vst_tp.name FROM investment AS vst
+	INNER JOIN investment_type AS vst_tp ON (vst.investment_type_id = vst_tp.id)
+	INNER JOIN bank AS bk ON (vst.bank_id = bk.id)
+	WHERE vst.status = true AND vst_tp.status = true AND bk.status = true;
 
-SELECT * FROM bank;
-SELECT * FROM investment_type;
-SELECT * FROM investment;
+--- LISTAR: TODAS AS TRANSAÇÕES:
+---								 INVESTIMENTOS + TIPOS DE INVESTIMENTOS + BANCOS
+---								 OBJETIVOS + RESERVAS + CARTEIRAS
 
+SELECT * FROM investment_transaction;
