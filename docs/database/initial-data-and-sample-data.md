@@ -1,25 +1,25 @@
 
 ```text
-Bancos
+Bancos 🏛
 
-├── Bancos Tradicionais 🏛
-│   ├── Banco do Brasil
-│   ├── Caixa Econômica Federal
-│   ├── Bradesco
-│   ├── Itaú Unibanco
-│   └── Santander
+├── Bancos Tradicionais 
+│   ├── Banco do Brasil ✅
+│   ├── Caixa Econômica Federal ✅
+│   ├── Bradesco ✅
+│   ├── Itaú Unibanco ✅
+│   └── Santander ✅
 │
 ├── Bancos Digitais
-│   ├── Nubank
-│   ├── Banco Inter
-│   ├── C6 Bank
+│   ├── Nubank ✅
+│   ├── Banco Inter ✅
+│   ├── C6 Bank ✅
 │   ├── Banco Original
 │   ├── Neon
 │   └── Banco PAN
 │
 ├── Corretoras de Investimentos
-│   ├── XP Investimentos
-│   ├── BTG Pactual
+│   ├── XP Investimentos ✅
+│   ├── BTG Pactual ✅
 │   ├── Rico
 │   ├── Clear
 │   ├── Genial Investimentos
@@ -28,9 +28,9 @@ Bancos
 │   └── Warren Investimentos
 │
 └── Instituições de Pagamento
-    ├── Mercado Pago
+    ├── Mercado Pago ✅
     ├── PagBank
-    ├── PicPay
+    ├── PicPay ✅
     ├── 99Pay
     └── RecargaPay
 ```
@@ -39,24 +39,24 @@ Bancos
 Tipos de Investimento 📈
 
 ├── Renda Fixa
-│   ├── Conta de Investimento
-│   ├── Caderneta de Poupança
-│   ├── CDB
-│   ├── LCI
-│   ├── LCA
-│   ├── Tesouro Direto
-│   └── Previdência Privada
+│   ├── Conta de Investimento ✅
+│   ├── Caderneta de Poupança ✅
+│   ├── CDB ✅
+│   ├── LCI ✅
+│   ├── LCA ✅
+│   ├── Tesouro Direto ✅
+│   └── Previdência Privada ✅
 │
 ├── Fundos
-│   ├── Fundo de Investimento
-│   └── Fundo de Investimento Imobiliário (FII)
+│   ├── Fundo de Investimento ✅
+│   └── Fundo de Investimento Imobiliário (FII) ✅
 │
 ├── Renda Variável
-│   ├── Ações
+│   ├── Ações ✅
 │   └── ETFs
 │
 └── Ativos Digitais
-    └── Criptoativos
+    └── Criptoativos ✅
 ```
 
 ```text
