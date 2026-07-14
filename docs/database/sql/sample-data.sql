@@ -114,39 +114,39 @@ INSERT INTO goal (reserve_id, name,
 	'Reservar recursos para manutenção preventiva e corretiva do veículo.',
 	0.00, 3000.00, '2026-01-01', 2),
 
-	(1, 'Comprar Ações',
+	(2, 'Comprar Ações',
 	'Aproveitar oportunidades de compra no mercado de ações.',
 	0.00, 10000.00, '2026-01-01', 2),
 
-	(1, 'Novo Negócio',
+	(2, 'Novo Negócio',
 	'Ter capital disponível para iniciar ou participar de um novo negócio.',
 	0.00, 50000.00, '2026-01-01', 3),
 
-	(1, 'Promoções Estratégicas',
+	(2, 'Promoções Estratégicas',
 	'Aproveitar promoções ou compras planejadas de alto valor.',
 	0.00, 5000.00, '2026-01-01', 3),
 
-	(1, 'Entrada do Imóvel',
+	(3, 'Entrada do Imóvel',
 	'Acumular recursos para a entrada da casa própria.',
 	0.00, 100000.00, '2026-01-01', 1),
 
-	(1, 'Compra do Veículo',
+	(3, 'Compra do Veículo',
 	'Juntar recursos para aquisição de um veículo.',
 	0.00, 60000.00, '2026-01-01', 2),
 
-	(1, 'Viagem Internacional',
+	(3, 'Viagem Internacional',
 	'Financiar uma viagem internacional.',
 	0.00, 20000.00, '2026-01-01', 3),
 
-	(1, 'Independência Financeira',
+	(4, 'Independência Financeira',
 	'Construir patrimônio para gerar renda passiva.',
 	0.00, 1500000.00, '2026-01-01', 1),
 
-	(1, 'Previdência Complementar',
+	(4, 'Previdência Complementar',
 	'Complementar a aposentadoria oficial.',
 	0.00, 500000.00, '2026-01-01', 2),
 
-	(1, 'Patrimônio de Longo Prazo',
+	(4, 'Patrimônio de Longo Prazo',
 	'Acumular patrimônio para o futuro.',
 	0.00, 1000000.00, '2026-01-01', 2);
 
@@ -159,51 +159,51 @@ INSERT INTO goal (reserve_id, name,
     initial_amount, target_amount, target_date, priority
 )
 	VALUES
-	(2, 'Capital de Giro',
+	(5, 'Capital de Giro',
 	'Garantir recursos para manter as operações da empresa.',
 	0.00, 100000.00, '2026-01-01', 1),
 
-	(2, 'Folha Salarial',
+	(5, 'Folha Salarial',
 	'Reservar recursos para pagamento da folha de pagamento.',
 	0.00, 50000.00, '2026-01-01', 1),
 
-	(2, 'Pagamento de Fornecedores',
+	(5, 'Pagamento de Fornecedores',
 	'Garantir recursos para pagamento de fornecedores.',
 	0.00, 40000.00, '2026-01-01', 2),
 
-	(2, 'Abrir Nova Unidade',
+	(6, 'Abrir Nova Unidade',
 	'Expandir a empresa com uma nova filial.',
 	0.00, 500000.00, '2026-01-01', 2),
 
-	(2, 'Contratação de Colaboradores',
+	(6, 'Contratação de Colaboradores',
 	'Reservar recursos para ampliação da equipe.',
 	0.00, 80000.00, '2026-01-01', 2),
 
-	(2, 'Expansão Regional',
+	(6, 'Expansão Regional',
 	'Expandir a atuação da empresa para uma nova região.',
 	0.00, 300000.00, '2026-01-01', 3),
 
-	(2, 'Compra de Equipamentos',
+	(7, 'Compra de Equipamentos',
 	'Modernizar a empresa com novos equipamentos.',
 	0.00, 150000.00, '2026-01-01', 2),
 
-	(2, 'Implantação de ERP',
+	(7, 'Implantação de ERP',
 	'Implantar um novo sistema de gestão empresarial.',
 	0.00, 100000.00, '2026-01-01', 2),
 
-	(2, 'Modernização da Infraestrutura',
+	(7, 'Modernização da Infraestrutura',
 	'Atualizar a infraestrutura física e tecnológica da empresa.',
 	0.00, 200000.00, '2026-01-01', 3),
 
-	(2, 'Pagamento de Impostos',
+	(8, 'Pagamento de Impostos',
 	'Reservar recursos para pagamento de tributos.',
 	0.00, 80000.00, '2026-01-01', 1),
 
-	(2, 'Encargos Trabalhistas',
+	(8, 'Encargos Trabalhistas',
 	'Garantir recursos para encargos e obrigações trabalhistas.',
 	0.00, 50000.00, '2026-01-01', 1),
 
-	(2, 'Licenças e Taxas',
+	(8, 'Licenças e Taxas',
 	'Reservar recursos para renovações e taxas obrigatórias.',
 	0.00, 10000.00, '2026-01-01', 2);
 
@@ -216,51 +216,51 @@ INSERT INTO goal (reserve_id, name,
     initial_amount, target_amount, target_date, priority
 )
 	VALUES
-	(3, 'Fundo de Emergência Familiar',
+	(9, 'Fundo de Emergência Familiar',
 	'Proteger a família contra imprevistos financeiros.',
 	0.00, 50000.00, '2026-01-01', 1),
 
-	(3, 'Despesas Médicas',
+	(9, 'Despesas Médicas',
 	'Cobrir despesas médicas inesperadas da família.',
 	0.00, 20000.00, '2026-01-01', 1),
 
-	(3, 'Reforma da Residência',
+	(9, 'Reforma da Residência',
 	'Reservar recursos para reparos urgentes na residência.',
 	0.00, 30000.00, '2026-01-01', 2),
 
-	(3, 'Viagem em Família',
+	(10, 'Viagem em Família',
 	'Planejar uma viagem para toda a família.',
 	0.00, 25000.00, '2026-01-01', 3),
 
-	(3, 'Compra da Casa Própria',
+	(10, 'Compra da Casa Própria',
 	'Juntar recursos para aquisição da residência da família.',
 	0.00, 200000.00, '2026-01-01', 1),
 
-	(3, 'Casamento de um Filho',
+	(10, 'Casamento de um Filho',
 	'Planejar financeiramente o casamento de um filho.',
 	0.00, 50000.00, '2026-01-01', 3),
 
-	(3, 'Imóvel para Investimento',
+	(11, 'Imóvel para Investimento',
 	'Adquirir um imóvel para aumentar o patrimônio familiar.',
 	0.00, 300000.00, '2026-01-01', 2),
 
-	(3, 'Compra de Chácara',
+	(11, 'Compra de Chácara',
 	'Adquirir uma chácara para lazer e patrimônio.',
 	0.00, 250000.00, '2026-01-01', 3),
 
-	(3, 'Patrimônio para Herança',
+	(11, 'Patrimônio para Herança',
 	'Construir patrimônio para as próximas gerações.',
 	0.00, 1000000.00, '2026-01-01', 2),
 
-	(3, 'Faculdade dos Filhos',
+	(12, 'Faculdade dos Filhos',
 	'Garantir recursos para o ensino superior dos filhos.',
 	0.00, 150000.00, '2026-01-01', 1),
 
-	(3, 'Curso de Idiomas',
+	(12, 'Curso de Idiomas',
 	'Financiar cursos de idiomas para a família.',
 	0.00, 30000.00, '2026-01-01', 2),
 
-	(3, 'Intercâmbio Internacional',
+	(12, 'Intercâmbio Internacional',
 	'Planejar um intercâmbio educacional.',
 	0.00, 100000.00, '2026-01-01', 3);
 
@@ -296,8 +296,8 @@ INSERT INTO investment (
 	name,
 	description)
 VALUES (
-	1,
 	7,
+	3,
 	'Meu Porquinho',
 	'Meu Porquinho - Inter');
 
@@ -307,8 +307,8 @@ INSERT INTO investment (
 	name,
 	description)
 VALUES (
-	1,
 	11,
+	3,
 	'Cofrinho',
 	'Cofrinho - Mercado Pago');
 
