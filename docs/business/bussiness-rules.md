@@ -4,6 +4,8 @@
 
 ### Relacionamentos
 
+RN000 - Uma Usuário pode possuir várias Carteiras.
+
 RN001 - Uma Carteira pode possuir várias Reservas.
 
 RN002 - Uma Reserva pertence obrigatoriamente a uma Carteira.
