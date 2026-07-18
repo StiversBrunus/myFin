@@ -13,7 +13,7 @@ Request Body:
     Não Possui.
 Response Body:
 
-``[
+```[
     {
         "id": 1,
         "name": "Patrimônio Pessoal",
@@ -28,7 +28,7 @@ Response Body:
         "status": true,
         "created_at": "2026-07-14 13:02:33"
     }
-]``
+]```
 
 Status HTTP possíveis:
     200 OK
@@ -45,13 +45,13 @@ Request Body:
     Não Possui.
 Response Body:
 
-``{
+```{
     "id": 1,
     "name": "Patrimônio Pessoal",
     "description": "Minha carteira de patrimônio pessoal.",
     "status": true,
     "created_at": "2026-07-14 13:02:33"
-  }``
+  }```
 
 Status HTTP possíveis:
     200 OK
@@ -66,19 +66,19 @@ Descrição:
 Regras de negócio relacionadas:
         RNV008 - O nome da Carteira deve ser único no sistema.
 Request Body:
-``{
+```{
     "name": "Patrimônio Familiar",
     "description": "Minha carteira de patrimônio familiar."
-}``
+}```
 Response Body:
 
-``{
+```{
     "id": 3,
     "name": "Patrimônio Familiar",
     "description": "Minha carteira de patrimônio familiar.",
     "status": true,
     "created_at": "2026-07-14 13:02:33"
-}``
+}```
 
 Status HTTP possíveis:
     201 Created
@@ -100,20 +100,20 @@ Regras de negócio relacionadas:
         UC003 - O usuário pode alterar o nome, descrição e status de uma Wallet.
         RNV008 - O nome da Carteira deve ser único no sistema.
 Request Body:
-``{
+```{
     "name": "Capital Familiar",
     "description": "Meu Capital familiar.",
     "status": "false"
-}``
+}```
 Response Body:
 
-``{
+```{
     "id": 3,
     "name": "Capital Familiar",
     "description": "Meu Capital familiar.",
     "status": false,
     "created_at": "2026-07-14 14:10:45"
-}``
+}```
 
 Status HTTP possíveis:
     200 OK
@@ -154,7 +154,7 @@ Regras de negócio relacionadas:
 Request Body:
     Não possui.
 Response Body:
-``[
+```[
     {
         "id": 1,
         "name": "Reserva de Emergência",
@@ -176,7 +176,7 @@ Response Body:
         "status": "true",
         "created_at": "2026-07-14 13:02:33"
     }
-  ]``
+  ]```
 Status HTTP possíveis:
     200 OK
     500 Internal Server Error
@@ -196,7 +196,7 @@ Request Body:
     "status": ""
 }
 Response Body:
-``[
+```[
     {
         "id": 1,
         "wallet_id": 1,
@@ -221,7 +221,7 @@ Response Body:
         "status": "true",
         "created_at": "2026-07-14 13:02:33"
     }
-  ]``
+  ]```
 Status HTTP possíveis:
     200 OK
     500 Internal Server Error
@@ -237,14 +237,14 @@ Request Body:
     Não Possui.
 Response Body:
 
-``{
+```{
     "id": 1,
     "wallet_id": 1,
     "name": "Reserva de Emergência",
     "description": "Garantir segurança financeira diante de imprevistos pessoais...",
     "status": "true",
     "created_at": "2026-07-14 13:02:33"
-  }``
+  }```
 
 Status HTTP possíveis:
     200 OK
@@ -262,21 +262,21 @@ Regras de negócio relacionadas:
         RNV009 - O nome de uma Reserva deve ser único dentro da mesma Carteira. 
         É permitido que Carteiras diferentes possuam Reservas com o mesmo nome.
 Request Body:
-``{
+```{
     "wallet_id": "1",
     "name": "Reserva de Aposentadoria",
     "description": "Construir independência financeira e segurança para o futuro. Exemplo..."
-}``
+}```
 Response Body:
 
-``{
+```{
     "id": 4,
     "wallet_id:" "1",
     "name": "Reserva de Aposentadoria",
     "description": "Construir independência financeira e segurança para o futuro. Exemplo...",
     "status": "true",
     "created_at": "2026-07-14 13:02:33"
-  }``
+  }```
 
 Status HTTP possíveis:
     201 Created
