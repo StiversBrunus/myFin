@@ -30,6 +30,13 @@
         }
     ]```
 
+    Filtros:
+        nome, status
+    Ordenação:
+        name, status, created_at.
+    Paginação:
+        page, size, sort
+
     Status HTTP possíveis:
         200 OK
         500 Internal Server Error
@@ -52,6 +59,13 @@
         "status": true,
         "created_at": "2026-07-14 13:02:33"
     }```
+
+    Filtros:
+        nome, status
+    Ordenação:
+        name, status, created_at.
+    Paginação:
+        page, size, sort
 
     Status HTTP possíveis:
         200 OK
@@ -177,6 +191,14 @@
             "created_at": "2026-07-14 13:02:33"
         }
     ]```
+
+    Filtros:
+        carteira, nome, status
+    Ordenação:
+        name, status, created_at.
+    Paginação:
+        page, size, sort
+
     Status HTTP possíveis:
         200 OK
         500 Internal Server Error
@@ -222,6 +244,14 @@
             "created_at": "2026-07-14 13:02:33"
         }
     ]```
+
+    Filtros:
+        carteira, nome, status
+    Ordenação:
+        name, status, created_at.
+    Paginação:
+        page, size, sort
+
     Status HTTP possíveis:
         200 OK
         500 Internal Server Error
@@ -245,6 +275,13 @@
         "status": "true",
         "created_at": "2026-07-14 13:02:33"
     }```
+
+    Filtros:
+        carteira, nome, status
+    Ordenação:
+        name, status, created_at.
+    Paginação:
+        page, size, sort
 
     Status HTTP possíveis:
         200 OK
@@ -399,12 +436,19 @@
             "created_at": "2026-07-14 13:02:33"
         }
     ]```
+
+    Filtros:
+        reserva, nome, valor meta, data meta, Nível Prioridade, status
+    Ordenação:
+        reserva, name, valor, data, prioridade, status, created_at.
+    Paginação:
+        page, size, sort
+
     Status HTTP possíveis:
         200 OK
         500 Internal Server Error
     Observações:
         Retorna uma lista de Objetivos de um usuário.
-
 
 ## GET: /goals/{reserveId}/goals
     Descrição:
@@ -453,6 +497,14 @@
             "created_at": "2026-07-14 13:02:33"
         }
     ]```
+
+    Filtros:
+        reserva, nome, valor meta, data meta, Nível Prioridade, status
+    Ordenação:
+        reserva, name, valor, data, prioridade, status, created_at.
+    Paginação:
+        page, size, sort
+
     Status HTTP possíveis:
         200 OK
         500 Internal Server Error
@@ -481,6 +533,13 @@
         "created_at": "2026-07-14 13:02:33"
     }```
 
+    Filtros:
+        reserva, nome, valor meta, data meta, Nível Prioridade, status
+    Ordenação:
+        reserva, name, valor, data, prioridade, status, created_at.
+    Paginação:
+        page, size, sort
+
     Status HTTP possíveis:
         200 OK
         404 Not Found
@@ -489,30 +548,195 @@
         Retorna apenas um Objetivo de um usuário.
 
 ## POST: /goals
+    Descrição:
+        Cria um novo objetivo.
+    Regras de negócio relacionadas:
+            UC009 - O usuário pode criar um Goal.
+            RN004 - Um Objetivo pertence obrigatoriamente a uma Reserva.
+            RNV010 - O nome de um Objetivo deve ser único dentro da mesma Reserva.
+            É permitido que Reservas diferentes possuam Objetivos com o mesmo nome.
+    Request Body:
+    ```{
+        "reserve_id": 13,
+        "name": "Capital de Giro",
+        "description": "Garantir recursos para manter as operações da empresa.",
+        "initial_amount": 0.00,
+        "target_amount": 100000.00,
+        "target_date": "2026-01-01",
+        "priority": 1,
+    }```
+    Response Body:
+
+    ```{
+        "id": 13,
+        "reserve_id": 5,
+        "name": "Capital de Giro",
+        "description": "Garantir recursos para manter as operações da empresa.",
+        "initial_amount": 0.00,
+        "target_amount": 100000.00,
+        "target_date": "2026-01-01",
+        "priority": 1,
+        "status": "true",
+        "created_at": "2026-07-14 13:02:33"
+    }```
+
+    Status HTTP possíveis:
+        201 Created
+        400 Bad Request
+        403 Forbidden
+        409 Conflict
+        500 Internal Server Error
+    Observações:
+        O usuário deve indicar a reserva.
+        O nome do Objetivo deve ser único dentro de uma reserva.
+        O campo nome tem limite de 100 caracteres.
+        O campo descrição tem limite de 255 caracteres.
+        O campo status será criado como active (true).
+
 ## PUT: /goals/{id}
+    Descrição:
+        Atualiza os dados de um objetivo existente.
+    Regras de negócio relacionadas:
+            UC011 - O usuário pode alterar...
+            RNV010 - O nome de um Objetivo deve ser único dentro da mesma Reserva.
+            É permitido que Reservas diferentes possuam Objetivos com o mesmo nome.
+    Request Body:
+    ```{
+        "name": "Capital de Giro",
+        "description": "Garantir recursos para manter as operações da empresa.",
+        "initial_amount": 0.00,
+        "target_amount": 100000.00,
+        "target_date": "2026-01-01",
+        "priority": 1,
+        "status": "false"
+    }```
+    Response Body:
+
+    ```{
+        "id": 13,
+        "reserve_id": 5,
+        "name": "Capital de Giro",
+        "description": "Garantir recursos para manter as operações da empresa.",
+        "initial_amount": 0.00,
+        "target_amount": 100000.00,
+        "target_date": "2026-01-01",
+        "priority": 1,
+        "status": "false",
+        "created_at": "2026-07-14 13:02:33"
+    }```
+
+    Status HTTP possíveis:
+        200 OK
+        400 Bad Request
+        403 Forbidden
+        409 Conflict
+        500 Internal Server Error
+    Observações:
+        Não é permitido alterar o ID, reserva, e data de criação.
+
+
 ## DELETE: /goals/{id}
+    Descrição:
+        Remove um objetivo existente.
+    Regras de negócio relacionadas:
+            RN015 - Um Objetivo somente pode ser removido caso não possua Movimentações associadas.
+            UC012 - O usuário pode excluir um Goal desde que não existam Investment Transactions associadas.
+    Request Body:
+        Não possui.
+    Response Body:
+        Não possui.
+    Status HTTP possíveis:
+        204 No Content
+        403 Forbidden
+        404 Not Found
+        409 Conflict
+        500 Internal Server Error
+    Observações:
+        Caso existam Transações vinculados, a exclusão deverá ser impedida.
 
-/*BANCOS*/
+# BANCOS
 
-/*Acredito que não vou permitir o usuário de inserir, editar e excluir um novo banco ou instituição financeira, eu insiro no banco toda vez que surgir uma nova instituição.Como o surgimento de uma nova instituição financeira não é recorrente no país, acredito que isto não dará muito suporte.*/
+## GET: /banks
+    Descrição:
+        Lista todos os bancos com filtro.
+    Regras de negócio relacionadas:
+        UC021 - O usuário pode listar os bancos.
+        RN016 - Um Banco não pode ser removido.
+    Request Body:
+    {
+        "name": "",
+        "description": ""
+    }
+    Response Body:
+    ```[
+        {
+            "id": 1,
+            "name": "Banco do Brasil",
+            "description": "Banco do Brasil S.A",
+            "status": "true"
+        },
+        {
+            "id": 2,
+            "name": "Caixa Econômica Federal",
+            "description": "Caixa Econômica Federal",
+            "status": "true"
+        },
+        {
+            "id": 3,
+            "name": "Bradesco",
+            "description": "Banco Bradesco S.A",
+            "status": "true"
+        }
+    ]```
 
-GET: /banks
-GET: /banks/{id}
-POST: /banks
-PUT: /banks/{id}
-DELETE: /banks/{id}
+    Filtros:
+        nome, status
+    Ordenação:
+        name, status.
+    Paginação:
+        page, size, sort
 
-/*TIPOS DE INVESTIMENTOS*/
+    Status HTTP possíveis:
+        200 OK
+        500 Internal Server Error
+    Observações:
+        Retorna uma lista de bancos conforme o filtro.
 
-/*Ainda não sei se vou permitir o usuário de inserir, editar e excluir um novo tipo de investimento, ou se eu insiro no banco toda vez que surgir um novo tipo de investimento, ou toda vez que der um suporte pedindo a adição de um novo tipo de investimento.*/
+## GET: /banks/{id}
+    Descrição:
+        Lista todos os bancos com filtro.
+    Regras de negócio relacionadas:
+        UC021 - O usuário pode listar os bancos.
+        RN016 - Um Banco não pode ser removido.
+    Request Body:
+        Não Possui.
+    Response Body:
+    ```{
+            "id": 1,
+            "name": "Banco do Brasil",
+            "description": "Banco do Brasil S.A",
+            "status": "true"
+        }```
+
+    Filtros:
+        Nenhum
+    Ordenação:
+        Nenhum.
+    Paginação:
+        Nenhum.
+    Status HTTP possíveis:
+        200 OK
+        404 Not Found
+        500 Internal Server Error
+    Observações:
+        Retorna apenas um banco.
+
+# TIPOS DE INVESTIMENTOS
 
 GET: /investment-types
 GET: /investment-types/{id}
-POST: /investment-types
-PUT: /investment-types/{id}
-DELETE: /investment-types/{id}
 
-/*INVESTIMENTOS*/
+# INVESTIMENTOS
 
 /*Não sei se Investimentos será uma entidade aonde o usuário irá manipular.Porque investimento é apenas uma tabela intermediária entre uma transação e o (banco + tipo de investimento) aonde o dinheiro está aportado. porém, por enquanto vou deixar listado.*/
 
