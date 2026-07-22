@@ -40,11 +40,11 @@ RN014 - Uma Reserva somente pode ser removida caso não possua Objetivos associa
 
 RN015 - Um Objetivo somente pode ser removido caso não possua Movimentações associadas.
 
-RN016 - Um Banco somente pode ser removido caso não possua Investimentos associados.
+RN016 - Um Banco não pode ser removido.
 
-RN017 - Um Tipo de Investimento somente pode ser removido caso não possua Investimentos associados.
+RN017 - Um Tipo de Investimento não pode ser removido.
 
-RN018 - Um Investimento somente pode ser removido caso não possua Movimentações associadas.
+RN018 - Um Investimento não pode ser removido.
 
 ---
 
