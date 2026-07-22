@@ -171,6 +171,7 @@
     ```[
         {
             "id": 1,
+            "wallet_id": 1,
             "name": "Reserva de Emergência",
             "description": "Garantir segurança financeira diante de imprevistos pessoais...",
             "status": "true",
@@ -178,6 +179,7 @@
         },
         {
             "id": 2,
+            "wallet_id": 1,
             "name": "Reserva de Oportunidade",
             "description": "Manter recursos disponíveis para aproveitar oportunidades financeiras...",
             "status": "true",
@@ -185,6 +187,7 @@
         },
         {
             "id": 3,
+            "wallet_id": 1,
             "name": "Reserva de Patrimônio",
             "description": "Construir patrimônio e realizar objetivos pessoais de médio e longo...",
             "status": "true",
@@ -733,23 +736,162 @@
 
 # TIPOS DE INVESTIMENTOS
 
-GET: /investment-types
-GET: /investment-types/{id}
+## GET: /investment-types
+    Descrição:
+        Lista todos os tipos de investimentos com filtro.
+    Regras de negócio relacionadas:
+        UC024 - O usuário pode listar os tipos de investimento.
+        UC023 - O usuário não pode cadastrar um tipo de investimento.
+        UC025 - O usuário não pode alterar um tipo de investimento.
+        UC026 - O usuário não pode excluir um tipo de investimento.
+        RNV012 - O nome do Tipo de Investimento deve ser único no sistema.
+        RN017 - Um Tipo de Investimento não pode ser removido.
+        RN026 - Um Tipo de Investimento não armazena saldo.
+    Request Body:
+    {
+        "name": "",
+        "description": "",
+        "status": ""
+    }
+    Response Body:
+    ```[
+        {
+            "id": 1,
+            "name": "Conta de Investimento",
+            "description": "Conta de Investimento",
+            "status": "true"
+        },
+        {
+            "id": 2,
+            "name": "CDB",
+            "description": "Certificado de Depósito Bancário",
+            "status": "true"
+        },
+        {
+            "id": 3,
+            "name": "Previdência Privada",
+            "description": "Plano de Previdência Complementar Privada",
+            "status": "true"
+        }
+    ]```
+
+    Filtros:
+        nome, description, status
+    Ordenação:
+        name, status.
+    Paginação:
+        page, size, sort
+
+    Status HTTP possíveis:
+        200 OK
+        500 Internal Server Error
+    Observações:
+        Retorna uma lista de tipos de investimentos conforme o filtro.
+
+## GET: /investment-types/{id}
+    Descrição:
+        Lista apenas um tipo de investimento.
+    Regras de negócio relacionadas:
+        UC024 - O usuário pode listar os tipos de investimento.
+        UC023 - O usuário não pode cadastrar um tipo de investimento.
+        UC025 - O usuário não pode alterar um tipo de investimento.
+        UC026 - O usuário não pode excluir um tipo de investimento.
+        RNV012 - O nome do Tipo de Investimento deve ser único no sistema.
+        RN017 - Um Tipo de Investimento não pode ser removido.
+        RN026 - Um Tipo de Investimento não armazena saldo.
+    Request Body:
+        Não Possui.
+    Response Body:
+    ```{
+            "id": 4,
+            "name": "Tesouro Direto",
+            "description": "Programa Tesouro Direto - Programa de Negociação de Títulos Públicos Federais",
+            "status": "true"
+        }```
+
+    Filtros:
+        Nenhum
+    Ordenação:
+        Nenhum.
+    Paginação:
+        Nenhum.
+    Status HTTP possíveis:
+        200 OK
+        404 Not Found
+        500 Internal Server Error
+    Observações:
+        Retorna apenas um tipo de investimento.
+
 
 # INVESTIMENTOS
 
 /*Não sei se Investimentos será uma entidade aonde o usuário irá manipular.Porque investimento é apenas uma tabela intermediária entre uma transação e o (banco + tipo de investimento) aonde o dinheiro está aportado. porém, por enquanto vou deixar listado.*/
 
-GET: /investments
-GET: /investments/{id}
-POST: /investments
-PUT: /investments/{id}
-DELETE: /investments/{id}
+## GET: /investments
+    Descrição:
+        Lista todos os investimentos com filtro.
+    Regras de negócio relacionadas:
+        RN018 - Um Investimento não pode ser removido.
+        RN025 - Um Investimento não armazena saldo.
+    Request Body:
+    {
+        "bank_id": "",
+        "investment_type_id": "",
+        "name": "",
+        "description": "",
+        "status": ""
+    }
+    Response Body:
+    ```[
+        {
+            "id": 1,
+            "bank_id": 1,
+            "investment_type_id": 1,
+            "name": "Cofrinho BB",
+            "description": "Cofrinho - Banco do Brasil - Fundo de Investimentos.",
+            "status": "true"
+        },
+        {
+            "id": 2,
+            "bank_id": 6,
+            "investment_type_id": 3,
+            "name": "Caixinha",
+            "description": "Caixinha - Nubank - [Colocar o Nome]",
+            "status": "true"
+        },
+        {
+            "id": 3,
+            "bank_id": 7,
+            "investment_type_id": 3,
+            "name": "Meu Porquinho",
+            "description": "Meu Porquinho - Inter",
+            "status": "true"
+        }
+    ]```
 
-/*TRANSAÇÕES*/
+    Filtros:
+        bancos, tipo de investimentos, nome, description, status
+    Ordenação:
+        bancos, tipo de investimentos, nome, description, status
+    Paginação:
+        page, size, sort
 
-GET: /investment-transactions
-GET: /investment-transactions/{id}
+    Status HTTP possíveis:
+        200 OK
+        500 Internal Server Error
+    Observações:
+        Retorna uma lista de investimentos conforme o filtro.
+
+
+# TRANSAÇÕES
+
+## GET: /investment-transactions
+
+
+## GET: /investment-transactions/{id}
+
+
+
 POST: /investment-transactions
 PUT: /investment-transactions/{id}
 DELETE: /investment-transactions/{id}
