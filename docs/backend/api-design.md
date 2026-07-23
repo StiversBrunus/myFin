@@ -453,7 +453,7 @@
     Observações:
         Retorna uma lista de Objetivos de um usuário.
 
-## GET: /goals/{reserveId}/goals
+## GET: /reserves/{reserveId}/goals
     Descrição:
         Lista todos os objetivos de uma reserva.
     Regras de negócio relacionadas:
@@ -950,7 +950,7 @@
     Observações:
         Retorna uma lista de movimentações conforme o filtro.
 
-## GET: /investment-transactions/{goalId}/investment-transactions
+## GET: /goals/{goalId}/investment-transactions
     Descrição:
         Listar todas as transações de um objetivo.
     Regras de negócio relacionadas:
