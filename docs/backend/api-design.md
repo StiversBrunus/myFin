@@ -886,12 +886,259 @@
 # TRANSAÇÕES
 
 ## GET: /investment-transactions
+    Descrição:
+        Lista todas as transações com filtro.
+    Regras de negócio relacionadas:
+        UC014 - O usuário pode consultar as Investment Transactions.
+        RNV007 - A data da transação representa a data real do evento financeiro e pode ser diferente da data em que o registro foi inserido no sistema.
+    Request Body:
+    {
+        "goal_id": "",
+        "investment_id": "",
+        "transaction_date": "",
+        "transaction_type": "",
+        "amount": "",
+        "description": ""
+    }
+    Response Body:
+    ```[
+        {
+            "id": 1,
+            "goal_id": 28,
+            "investment_id": 2,
+            "transaction_date": "2026-07-22 11:35:00",
+            "transaction_type": 1,
+            "amount": 500.00,
+            "description": "500,00 reais, depositado na caixinha do nubank.",
+            "note": "Coloquei 500,00 reais no Nubank, na caixinha 'viagens', para viagem em familia no final do ano.",
+            "created_at": "2026-07-22 11:47:29"
+        },
+        {
+            "id": 2,
+            "goal_id": 36,
+            "investment_id": 3,
+            "transaction_date": "2026-07-05 09:15:00",
+            "transaction_type": 3,
+            "amount": "23.05",
+            "description": "Rendimento: Cofrinho - Banco do Brasil (Viagem Internacional)",
+            "note": "23,05 de rendimento do saldo aplicado no cofrinho do Banco do Brasil, reservado para viagem internacional.",
+            "created_at": "2026-07-05 12:02:07"
+        },
+        {
+            "id": 3,
+            "goal_id": 19,
+            "investment_id": 4,
+            "transaction_date": "2026-07-15 18:55:18",
+            "transaction_type": 2,
+            "amount": 15000.00,
+            "description": "Resgate: Confrinho - Mercado Pago (Compra de Equipamentos)",
+            "note": "Regate de 15 mil reais do cofrinho do mercado pago, para modernizar a empresa com novos equipamentos.",
+            "created_at": "2026-07-22 09:35:13"
+        }
+    ]```
 
+    Filtros:
+        objetivo, investimento, data de transação, tipo de transação, valor e descricao
+    Ordenação:
+        objetivo, data de transação, tipo de transação, valor e descricao
+    Paginação:
+        page, size, sort
+
+    Status HTTP possíveis:
+        200 OK
+        500 Internal Server Error
+    Observações:
+        Retorna uma lista de movimentações conforme o filtro.
+
+## GET: /investment-transactions/{goalId}/investment-transactions
+    Descrição:
+        Listar todas as transações de um objetivo.
+    Regras de negócio relacionadas:
+        UC014 - O usuário pode consultar as Investment Transactions.
+        RNV007 - A data da transação representa a data real do evento financeiro e pode ser diferente da data em que o registro foi inserido no sistema.
+    Request Body:
+        Não possui.
+    Response Body:
+    ```[
+        {
+            "id": 1,
+            "goal_id": 22,
+            "investment_id": 1,
+            "transaction_date": "2026-07-22 11:35:00",
+            "transaction_type": 1,
+            "amount": 7500.00,
+            "description": "Depósito: Cofrinho - Banco do Brasil (Encargos Trabalhistas).",
+            "note": "Coloquei 7.500,00 reais no Banco do Brasil, para garantir recursos para encargos e obrigações trabalhistas..",
+            "created_at": "2026-07-22 11:47:29"
+        },
+        {
+            "id": 2,
+            "goal_id": 22,
+            "investment_id": 3,
+            "transaction_date": "2026-07-05 09:15:00",
+            "transaction_type": 3,
+            "amount": "2500.00",
+            "description": "Rendimento: Cofrinho - Banco do Brasil (Encargos Trabalhistas)",
+            "note": "2.500,00 de rendimento do saldo aplicado no cofrinho do Banco do Brasil, reservado para encargos e...",
+            "created_at": "2026-07-05 12:02:07"
+        },
+        {
+            "id": 3,
+            "goal_id": 22,
+            "investment_id": ?,
+            "transaction_date": "2026-07-15 18:55:18",
+            "transaction_type": 2,
+            "amount": 5000.00,
+            "description": "Resgate: Cofrinho - Banco do Brasil (Encargos Trabalhistas)",
+            "note": "Regate de 5 mil reais do cofrinho do Banco do Brasil, para pagar encargos trabalhistas.",
+            "created_at": "2026-07-22 09:35:13"
+        }
+    ]```
+
+    Filtros:
+        Não possui.
+    Ordenação:
+        data de transação, tipo de transação, valor.
+    Paginação:
+        page, size, sort
+    Status HTTP possíveis:
+        200 OK
+        500 Internal Server Error
+    Observações:
+        Retorna uma lista de movimentações de um objetivo.
 
 ## GET: /investment-transactions/{id}
+    Descrição:
+        Retorna uma única transação do usuário.
+    Regras de negócio relacionadas:
+        UC014 - O usuário pode consultar as Investment Transactions.
+        RNV007 - A data da transação representa a data real do evento financeiro e pode ser diferente da data em que o registro foi inserido no sistema.
+    Request Body:
+        Não Possui.
+    Response Body:
 
+    ```{
+        "id": 2,
+        "goal_id": 22,
+        "investment_id": 3,
+        "transaction_date": "2026-07-05 09:15:00",
+        "transaction_type": 3,
+        "amount": "2500.00",
+        "description": "Rendimento: Cofrinho - Banco do Brasil (Encargos Trabalhistas)",
+        "note": "2.500,00 de rendimento do saldo aplicado no cofrinho do Banco do Brasil, reservado para encargos e...",
+        "created_at": "2026-07-05 12:02:07"
+    }```
 
+    Filtros:
+        Não possui.
+    Ordenação:
+       data de transação, tipo de transação, valor.
+    Paginação:
+        page, size, sort
 
-POST: /investment-transactions
+    Status HTTP possíveis:
+        200 OK
+        404 Not Found
+        500 Internal Server Error
+    Observações:
+        Retorna apenas uma transação de um usuário.
+
+## POST: /investment-transactions
+    Descrição:
+        Cria uma nova transação.
+    Regras de negócio relacionadas:
+            UC013 - O usuário pode registrar uma Investment Transaction.
+            RNV004 - O valor da Movimentação (`investment_transaction.amount`) deve ser maior que zero.
+    Request Body:
+    ```{
+        "goal_id": 16,
+        "investment_id": 3,
+        "transaction_date": "2026-07-05 09:15:00",
+        "transaction_type": 1,
+        "amount": "75000.00",
+        "description": "Depósito: Cofrinho - Banco do Brasil (Abrir uma nova unidade)",
+        "note": "75.000,00 de depósito no cofrinho do Banco do Brasil, reservado para abrir nova unidade..."
+    }```
+    Response Body:
+
+    ```{
+        "id": 14,
+        "goal_id": 16,
+        "investment_id": 3,
+        "transaction_date": "2026-07-05 09:15:00",
+        "transaction_type": 1,
+        "amount": "75000.00",
+        "description": "Depósito: Cofrinho - Banco do Brasil (Abrir uma nova unidade)",
+        "note": "75.000,00 de depósito no cofrinho do Banco do Brasil, reservado para abrir nova unidade...",
+        "created_at": "2026-07-05 12:02:07"
+    }```
+
+    Status HTTP possíveis:
+        201 Created
+        400 Bad Request
+        403 Forbidden
+        409 Conflict
+        500 Internal Server Error
+    Observações:
+        O usuário deve indicar o objetivo.
+        O usuário deve indicar o tipo de transação
+        O valor deve ser maior do que zero.
+        O campo descrição tem limite de 255 caracteres.
+        O campo note é sem limites de caracter, deve ser validada a entrada do campo.
+
 PUT: /investment-transactions/{id}
+    Descrição:
+        Atualiza os dados de uma transação existente.
+    Regras de negócio relacionadas:
+        UC015 - O usuário pode alterar os dados de uma Investment Transaction.
+
+    Request Body:
+    ```{
+        "goal_id": 16,
+        "investment_id": 3,
+        "transaction_date": "2026-07-05 09:15:00",
+        "transaction_type": 3,
+        "amount": "75000.00",
+        "description": "Rendimentos: Cofrinho - Banco do Brasil (Abrir uma nova unidade)",
+        "note": "75.000,00 de rendimento no cofrinho do Banco do Brasil, reservado para abrir nova unidade..."
+    }```
+    Response Body:
+
+    ```{
+        "id": 14,
+        "goal_id": 16,
+        "investment_id": 3,
+        "transaction_date": "2026-07-05 09:15:00",
+        "transaction_type": 3,
+        "amount": "75000.00",
+        "description": "Rendimentos: Cofrinho - Banco do Brasil (Abrir uma nova unidade)",
+        "note": "75.000,00 de rendimento no cofrinho do Banco do Brasil, reservado para abrir nova unidade...",
+        "created_at": "2026-07-05 12:02:07"
+    }```
+
+    Status HTTP possíveis:
+        200 OK
+        400 Bad Request
+        403 Forbidden
+        409 Conflict
+        500 Internal Server Error
+    Observações:
+        Não é permitido alterar o ID, objetivo e data de criação.
+
 DELETE: /investment-transactions/{id}
+    Descrição:
+        Remove uma transacao existente.
+    Regras de negócio relacionadas:
+        UC016 - O usuário pode excluir uma Investment Transaction.
+    Request Body:
+        Não possui.
+    Response Body:
+        Não possui.
+    Status HTTP possíveis:
+        204 No Content
+        403 Forbidden
+        404 Not Found
+        409 Conflict
+        500 Internal Server Error
+    Observações:
+        Não possui.
