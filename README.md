@@ -2,7 +2,7 @@
 
 ![Status](https://img.shields.io/badge/Status-In%20Development-orange)
 ![Java](https://img.shields.io/badge/Java-21-red)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.x-6DB33F)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-336791)
 ![React](https://img.shields.io/badge/React-Web-61DAFB)
 ![React Native](https://img.shields.io/badge/React_Native-Mobile-61DAFB)
@@ -42,10 +42,12 @@ myFin
 ├── 📁 docs
 |   ├── 📁 backend
 │   │   └── api-design.md
+│   │   
 │   ├── 📁 business
 │   │   ├── business-rules.md
 │   │   ├── use-cases.md
 │   │   └── validation-rules.md
+│   │   
 │   ├── 📁 database
 │   │   ├── 📁 model
 │   │   │   ├── database-model.PNG
