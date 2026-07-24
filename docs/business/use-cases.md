@@ -70,23 +70,23 @@ UC019 - O usuário pode alterar nome, descrição e status do investimento.
 
 ## Banco (Bank)
 
-UC020 - O usuário pode cadastrar um banco.
+UC020 - O usuário não pode cadastrar um banco.
 
 UC021 - O usuário pode listar os bancos.
 
-UC022 - O usuário pode alterar nome, descrição e status do banco.
+UC022 - O usuário não pode alterar nome, descrição e status do banco.
 
 ---
 
 ## Tipo de Investimento (Investiment Type)
 
-UC023 - O usuário pode cadastrar um tipo de investimento.
+UC023 - O usuário não pode cadastrar um tipo de investimento.
 
 UC024 - O usuário pode listar os tipos de investimento.
 
-UC025 - O usuário pode alterar nome e descrição.
+UC025 - O usuário não pode alterar um tipo de investimento.
 
-UC026 - O usuário pode excluir um tipo de investimento que não esteja sendo utilizado por nenhuma Investment Transaction.
+UC026 - O usuário não pode excluir um tipo de investimento.
 
 ---
 
