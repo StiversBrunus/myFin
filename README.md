@@ -40,22 +40,29 @@ At the moment, this repository includes:
 myFin
 │
 ├── 📁 docs
+|   ├── 📁 backend
+│   │   └── api-design.md
 │   ├── 📁 business
 │   │   ├── business-rules.md
 │   │   ├── use-cases.md
 │   │   └── validation-rules.md
-│   │
 │   ├── 📁 database
 │   │   ├── 📁 model
-│   │   │   ├── database-model.png
+│   │   │   ├── database-model.PNG
 │   │   │   ├── der-diagram.mwb
 │   │   │   └── der-diagram.mwb.bak
 │   │   │
 │   │   ├── 📁 sql
-│   │   │   ├── schema.sql
-│   │   │   └── manual-tests.sql
+│   │   │   ├── create-database.sql
+│   │   │   ├── create-tables.sql
+│   │   │   ├── foreing-keys.sql
+│   │   │   ├── initial-data.sql
+│   │   │   ├── manual-tests.sql
+│   │   │   ├── query-utils.sql
+│   │   │   └── sample-data.sql
 │   │   │
 │   │   ├── data-dictionary.md
+|   |   ├── initial-data-and-sample-data.md
 │   │   └── manual-tests.md
 │
 ├── README.md
@@ -86,15 +93,22 @@ Stay tuned! 🚀
 
 ### 📐 Database Modeling
 
-* MySQL Workbench 🐬
+* MySQL Workbench 8.0 CE🐬
 
 ---
 
 ## ☕ Back-end
 
 * Java 21 ☕
-* Spring Boot 3.x 🍃
-
+* Spring Boot 4.1.0 🍃
+* Maven
+### Dependencies
+* Spring Web
+* Spring Data JPA
+* Spring Boot DevTools
+* PostgreSQL Driver
+* Validation
+* Lombok
 ---
 
 ## 🎨 Front-end
